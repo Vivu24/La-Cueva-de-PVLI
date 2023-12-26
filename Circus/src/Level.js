@@ -1,6 +1,8 @@
+import Player from "./Player.js";
+
 export default class Level extends Phaser.Scene{
 
-    constructor(){
+    constructor(score){
         super({key: 'Level'});
     }
 
@@ -8,6 +10,8 @@ export default class Level extends Phaser.Scene{
         console.log("Level");
 
         this.background = this.add.image(0,200, "background").setOrigin(0,0);
+
+        this.player = new Player(this, 50, 50);
     }
 
     update(){

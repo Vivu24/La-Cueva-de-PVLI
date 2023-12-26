@@ -220,5 +220,12 @@ class Moon extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'moon');
   }
 }
+… y lo añadimos:
 
+// this es una `Scene`
+create() {
+  this.earth = new Earth(this, 10, 10);
+  let moon = new Moon(this, 10, 10);
+  this.earth.add(this.moon);
+}
 */

@@ -20,6 +20,10 @@ export default class NombreEscena extends Phaser.Scene{
     }
 }
 
-/*+++++++Añadir Texto+++++++*/
+/*+++++++Añadir Texto+++++++*/ // Esto parece que peta en el circus xd
 this.texto = this.generateText(this.cameras.main.centerX, this.cameras.main.centerY, 'Texto', 
         { fontFamily: 'Fuente', fontSize: 50 /*Tamaño*/, color: 'Color' }).setOrigin(0.5,0.5);
+
+        // Se puede usar esto:
+let title = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 150, 'CIRCUS', 
+{ fontFamily: 'arcade_classic', fontSize: 50 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);

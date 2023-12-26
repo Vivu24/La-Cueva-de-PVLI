@@ -23,7 +23,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 480 },
-            debug: false
+            debug: true
         }
     },
     scene: [ Boot, Menu, Level ],
