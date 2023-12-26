@@ -6,10 +6,12 @@ button.on("pointerdown", () => {
     // Acciones a realizar cuando se clica el botón
 });
 
+
 /*+++++++Incluir Canvas+++++++*/
 <div class = "canvas">
     <script src = "src/game.js" type="module"></script>
 </div>
+
 
 
 /*+++++++Crear Escena+++++++*/
@@ -20,6 +22,7 @@ export default class NombreEscena extends Phaser.Scene{
     }
 }
 
+
 /*+++++++Añadir Texto+++++++*/ // Esto parece que peta en el circus xd
 this.texto = this.generateText(this.cameras.main.centerX, this.cameras.main.centerY, 'Texto', 
         { fontFamily: 'Fuente', fontSize: 50 /*Tamaño*/, color: 'Color' }).setOrigin(0.5,0.5);
@@ -27,3 +30,84 @@ this.texto = this.generateText(this.cameras.main.centerX, this.cameras.main.cent
         // Se puede usar esto:
 let title = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 150, 'CIRCUS', 
 { fontFamily: 'arcade_classic', fontSize: 50 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);
+
+
+/*+++++++Animacion+++++++*/
+this.anims.create({
+    key: 'nombreAnimacion',
+    frames: this.anims.generateFrameNumbers('nombreSpriteSheet', {start:0, end:3}),
+    frameRate: 5,
+    repeat: -1
+});
+
+
+/*+++++++Input+++++++*/
+this.cursors = scene.input.keyboard.addKeys({
+    up: Phaser.Input.Keyboard.KeyCodes.W,
+    left: Phaser.Input.Keyboard.KeyCodes.A,
+    right: Phaser.Input.Keyboard.KeyCodes.D,
+    interact: Phaser.Input.Keyboard.KeyCodes.E,
+    esc:  Phaser.Input.Keyboard.KeyCodes.ESC    
+});
+
+if (this.cursors.left.isDown){
+    // Condicion
+};
+
+
+/*+++++++Audio+++++++*/
+// Cargamos la Música
+this.music = this.sound.add('menuMusic', {loop: true, volume: 0.5});
+// Empezamos la Música
+this.music.play();
+
+// Parar Audio
+ this.sound.stopAll();
+
+// Audio para salto:
+this.jumpSound = scene.sound.add('jumpSound', {loop : false, volume: 0.5}); // En el constructor del player
+this.jumpSound.play();  // En la accion del salto
+
+
+/*+++++++Movimiento+++++++*/
+function move() {       // Sin el Function logicamente
+    if (this.cursors.left.isDown)
+    {
+        this.setVelocityX(-160);
+
+        this.anims.play('walkLion', true);
+    }
+    else if (this.cursors.right.isDown)
+    {
+        this.setVelocityX(160);
+
+        this.anims.play('walkLion', true);
+    }
+    else
+    {
+        this.setVelocityX(0);
+
+        this.anims.play('walkLion');
+    }
+
+    if (this.cursors.up.isDown && this.body.touching.down)
+    {
+        this.setVelocityY(-400);
+    }
+}
+
+
+/*+++++++Timer+++++++*/
+function spawnerRing() {        // Sin el Function logicamente
+    const createRing = () => {
+        this.ring = new Aro(this, this.cameras.main.width + 300, 500)
+        this.physics.add.collider(this.player, this.ring);  
+    }            
+    // Cada 4 segundos realiza el método createRing que vemos arriba
+    this.time.addEvent({
+    delay: 4000, 
+    loop: true,
+    callback: createRing,
+    callbackScope: this
+    });
+};

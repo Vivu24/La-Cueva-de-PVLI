@@ -19,6 +19,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             esc:  Phaser.Input.Keyboard.KeyCodes.ESC
             
         });
+
+        // Cargamos la Música
+        this.jumpSound = scene.sound.add('jumpSound', {loop : false, volume: 0.5});
+
     }
     preUpdate(t,dt) {
         super.preUpdate(t,dt)
@@ -46,7 +50,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.cursors.up.isDown && this.body.touching.down)
         {
-            this.setVelocityY(-400);
+            this.setVelocityY(-400);// Cargamos la Música
+            this.jumpSound.play();
+
         }
     }
 }

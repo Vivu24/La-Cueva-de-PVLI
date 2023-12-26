@@ -18,11 +18,11 @@ export default class Boot extends Phaser.Scene{
 
         // Cargamos Audio
         this.load.audio('menuMusic', './assets/sounds/menu.mp3');
-        this.load.audio('scoreSound', './assets/sounds/score.mp3');
+        this.load.audio('scoreSound', './assets/sounds/score.wav');
         this.load.audio('stageMusic', './assets/sounds/stage.mp3');
         this.load.audio('failureSound', './assets/sounds/failure.mp3');
-        this.load.audio('finalSound', './assets/sounds/final.mp3');
-        this.load.audio('jumpSound', './assets/sounds/jump.mp3');
+        this.load.audio('finalSound', './assets/sounds/final.wav');
+        this.load.audio('jumpSound', './assets/sounds/jump.wav');
     }
 
     loadAnimations(){
@@ -36,6 +36,12 @@ export default class Boot extends Phaser.Scene{
         this.anims.create({
             key: 'walkLion',
             frames: this.anims.generateFrameNumbers('lion', {start:0, end:2}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walkAro',
+            frames: this.anims.generateFrameNumbers('ring', {start:0, end:1}),
             frameRate: 5,
             repeat: -1
         });
