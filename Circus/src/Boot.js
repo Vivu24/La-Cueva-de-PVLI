@@ -34,6 +34,12 @@ export default class Boot extends Phaser.Scene{
             repeat: -1
         });
         this.anims.create({
+            key: 'victoryClown',
+            frames: this.anims.generateFrameNumbers('clown', {start:2, end:3}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
             key: 'walkLion',
             frames: this.anims.generateFrameNumbers('lion', {start:0, end:2}),
             frameRate: 5,
@@ -42,6 +48,12 @@ export default class Boot extends Phaser.Scene{
         this.anims.create({
             key: 'walkAro',
             frames: this.anims.generateFrameNumbers('ring', {start:0, end:1}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walkJarron',
+            frames: this.anims.generateFrameNumbers('fire', {start:0, end:1}),
             frameRate: 5,
             repeat: -1
         });

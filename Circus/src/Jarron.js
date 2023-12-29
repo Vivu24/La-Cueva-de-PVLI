@@ -1,14 +1,14 @@
-export default class Aro extends Phaser.Physics.Arcade.Sprite {
+export default class Jarron extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, { key: 'aro' });
+        super(scene, x, y, { key: 'jarron' });
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.setScale(3);
-        this.playerOffsetRight = {x: 10, y: 75};
+        this.playerOffsetRight = {x: 2, y: 0};
         this.playerOffsetLeft = {x: 0, y: 0};
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
-        this.body.setSize(10, 10);
+        this.body.setSize(20, 30);
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y);
 
         // Desactivar la gravedad
@@ -17,13 +17,7 @@ export default class Aro extends Phaser.Physics.Arcade.Sprite {
     }
 
     preUpdate(t, dt) {
-        super.preUpdate(t, dt);
-        this.move();        
-    }
-
-    move() {
-        this.setVelocityX(-100);
-
-        this.anims.play('walkAro', true);
+        super.preUpdate(t, dt); 
+        this.anims.play('walkJarron', true);
     }
 }

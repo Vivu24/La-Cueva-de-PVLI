@@ -39,6 +39,13 @@ export default class Menu extends Phaser.Scene{
             this.scene.start("Level", { score: 20000 });
         });
 
+        let buttonSuperEasy = this.add.text(this.cameras.main.centerX, 50 +this.cameras.main.centerY + 150, 'SuperEasy', 
+        { fontFamily: 'arcade_classic', fontSize: 25 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);
+        buttonSuperEasy.setInteractive();
+        buttonSuperEasy.on("pointerdown", () => {
+            this.scene.start("Level", { score: 800 });
+        });
+
         
 
         // Decoración del título

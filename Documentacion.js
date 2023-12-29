@@ -114,3 +114,34 @@ function spawnerRing() {        // Sin el Function logicamente
 
 /*+++++++Camara+++++++*/
 this.camera = this.cameras.main.startFollow(this.player);
+
+
+
+/*+++++++Eror Guapo que ha salido+++++++*/
+/*El error que estás experimentando se debe a que la función finishGame 
+se está llamando sin tener correctamente vinculado el contexto (this). 
+Al llamar a this.player.selfDestroy();, this no está apuntando a la 
+instancia de la clase Level como se espera, y por lo tanto, this.player es undefined.
+
+Para solucionar este problema, puedes hacer uso de la función bind para
+ asegurarte de que this en finishGame sea siempre la instancia de la clase Level. 
+ Modifica la línea donde asignas this.finishGame en el colisionador de la siguiente manera:
+
+ 
+//this.physics.add.collider(this.player, this.platform, this.finishGame.bind(this));
+
+Además, asegúrate de tener el método selfDestroy definido en la clase Player 
+y que este método elimina correctamente el sprite del jugador.
+
+Por ejemplo, en tu clase Player, podrías tener algo así:
+
+
+// ... Resto del código de la clase Player
+
+selfDestroy() {
+    this.destroy();
+}
+
+// ... Resto del código de la clase Player
+Con estos cambios, deberías evitar el error que estás experimentando. Asegúrate de realizar estos ajustes y prueba nuevamente.*/
+
