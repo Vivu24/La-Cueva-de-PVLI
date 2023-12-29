@@ -111,3 +111,6 @@ function spawnerRing() {        // Sin el Function logicamente
     callbackScope: this
     });
 };
+
+/*+++++++Camara+++++++*/
+this.camera = this.cameras.main.startFollow(this.player);

@@ -22,21 +22,21 @@ export default class Menu extends Phaser.Scene{
         { fontFamily: 'arcade_classic', fontSize: 25 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);
         buttonEasy.setInteractive();
         buttonEasy.on("pointerdown", () => {
-            this.scene.start("Level");
+            this.scene.start("Level", { score: 5000 });
         });
 
         let buttonNormal = this.add.text(this.cameras.main.centerX, 50 + this.cameras.main.centerY + 50, 'Normal', 
         { fontFamily: 'arcade_classic', fontSize: 25 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);
         buttonNormal.setInteractive();
         buttonNormal.on("pointerdown", () => {
-            this.scene.start("Level");
+            this.scene.start("Level", { score: 10000 });
         });
 
         let buttonHard = this.add.text(this.cameras.main.centerX, 50 +this.cameras.main.centerY + 100, 'Hard', 
         { fontFamily: 'arcade_classic', fontSize: 25 /*Tamaño*/, color: 'White' }).setOrigin(0.5,0.5);
         buttonHard.setInteractive();
         buttonHard.on("pointerdown", () => {
-            this.scene.start("Level");
+            this.scene.start("Level", { score: 20000 });
         });
 
         
