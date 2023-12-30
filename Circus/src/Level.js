@@ -104,8 +104,16 @@ export default class Level extends Phaser.Scene {
         }
         // Actualizar la posición del texto de puntuación en relación con la cámara
         this.points.setPosition(this.camera.scrollX + this.cameras.main.centerX, this.cameras.main.centerY - 200);
-        
-        this.clown = this.add.sprite(this.player.x + 10, this.player.y - 70, "clown");
+        this.clown.destroy();
+        if (this.player.isDead){
+            this.clown = this.add.sprite(this.player.x + 10, this.player.y - 40, "clown");
+            this.clown.setScale(3);
+            this.clown.anims.play('deadClown', true)
+        }        
+        else {
+            this.clown = this.add.sprite(this.player.x + 10, this.player.y - 40, "clown");
+            this.clown.setScale(3);
+        }
     }
 
 
@@ -145,7 +153,7 @@ export default class Level extends Phaser.Scene {
     
         // Detener la animación del jugador
         this.player.anims.play('deadLion', true);
-    
+
         // Agregar un retraso de 3 segundos antes de saltar al menú
         this.time.delayedCall(3000, this.delayedMenuTransition, [], this);
     }
