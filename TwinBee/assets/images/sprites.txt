@@ -1,0 +1,17 @@
+ancho x alto
+
+background.png: 256 x 1536
+
+bell.png: 16 x 16 (3 frames)
+
+bullet.png: 7 x 7
+
+cloud.png: 32 x 16 (2 frames)
+
+enemy.png: 16 x 16 (4 frames)
+
+explosion.png: 16 x 16 (3 frames)
+
+twinbee.png: 16 x 16 (4 frames)
+
+winbee.png: 16 x 16 (4 frames)
