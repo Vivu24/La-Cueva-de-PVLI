@@ -8,6 +8,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.playerOffsetLeft = {x:25, y:0}
 
 
+        this.isDead = false;
+
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(35, 20);
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
@@ -29,30 +31,38 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.move();        
     }
     move() {
-        if (this.cursors.left.isDown)
-        {
-            this.setVelocityX(-160);
+        if (!this.isDead){
 
-            this.anims.play('walkLion', true);
-        }
-        else if (this.cursors.right.isDown)
-        {
-            this.setVelocityX(160);
-
-            this.anims.play('walkLion', true);
-        }
-        else
-        {
-            this.setVelocityX(0);
-
-            this.anims.play('walkLion');
-        }
-
-        if (this.cursors.up.isDown && this.body.touching.down)
-        {
-            this.setVelocityY(-400);// Cargamos la Música
-            this.jumpSound.play();
-
+            if (this.cursors.left.isDown)
+            {
+                this.setVelocityX(-160);
+    
+                if(this.body.touching.down){
+                    this.anims.play('walkLion', true);
+                }
+            }
+            else if (this.cursors.right.isDown)
+            {
+                this.setVelocityX(160);
+    
+                if(this.body.touching.down){
+                    this.anims.play('walkLion', true);
+                }
+            }
+            else
+            {
+                this.setVelocityX(0);
+    
+                this.anims.play('idleLion');
+            }
+    
+            if (this.cursors.up.isDown && this.body.touching.down)
+            {
+                this.setVelocityY(-400);// Cargamos la Música
+                this.anims.play('jumpLion');
+                this.jumpSound.play();
+    
+            }
         }
     }
 

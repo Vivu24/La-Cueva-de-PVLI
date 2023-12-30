@@ -5,7 +5,9 @@ export default class Menu extends Phaser.Scene{
     }
 
     create(){
-
+        // Paramos el audio
+        this.sound.stopAll();
+        
         // Cargamos la Música
         this.music = this.sound.add('menuMusic', {loop: true, volume: 0.5});
         // Empezamos la Música

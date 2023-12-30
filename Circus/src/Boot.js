@@ -40,9 +40,33 @@ export default class Boot extends Phaser.Scene{
             repeat: -1
         });
         this.anims.create({
-            key: 'walkLion',
-            frames: this.anims.generateFrameNumbers('lion', {start:0, end:2}),
+            key: 'deadClown',
+            frames: this.anims.generateFrameNumbers('clown', {start:4, end:4}),
             frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walkLion',
+            frames: this.anims.generateFrameNumbers('lion', {start:1, end:2}),
+            frameRate: 3,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'jumpLion',
+            frames: this.anims.generateFrameNumbers('lion', {start:0, end:0}),
+            frameRate: 3,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'idleLion',
+            frames: this.anims.generateFrameNumbers('lion', {start:2, end:2}),
+            frameRate: 3,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'deadLion',
+            frames: this.anims.generateFrameNumbers('lion', {start:3, end:3}),
+            frameRate: 3,
             repeat: -1
         });
         this.anims.create({

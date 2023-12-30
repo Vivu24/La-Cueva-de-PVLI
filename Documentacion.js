@@ -127,7 +127,7 @@ Para solucionar este problema, puedes hacer uso de la función bind para
  asegurarte de que this en finishGame sea siempre la instancia de la clase Level. 
  Modifica la línea donde asignas this.finishGame en el colisionador de la siguiente manera:
 
- 
+  
 //this.physics.add.collider(this.player, this.platform, this.finishGame.bind(this));
 
 Además, asegúrate de tener el método selfDestroy definido en la clase Player 

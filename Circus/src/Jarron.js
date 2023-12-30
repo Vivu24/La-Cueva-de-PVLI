@@ -6,6 +6,7 @@ export default class Jarron extends Phaser.Physics.Arcade.Sprite {
         this.setScale(3);
         this.playerOffsetRight = {x: 2, y: 0};
         this.playerOffsetLeft = {x: 0, y: 0};
+        this.setImmovable(true);
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(20, 30);
