@@ -1,18 +1,50 @@
 export default class Title extends Phaser.Scene {
-
     constructor() {
         super({ key: 'Title' });
     }
 
-    init(data) {
-        
-    }
-
     create() {
-        
+        // Paramos el audio
+        this.sound.stopAll();
+
+        // Texto del Título con borde de color aleatorio
+        let title = this.add.text(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY - 50,
+            'TwinBee',
+            {
+                fontFamily: 'gummy',
+                fontSize: 50,
+                color: 'White',
+                stroke: '0x' + Math.floor(Math.random()*16777215).toString(16), // Borde de color aleatorio
+                strokeThickness: 6 // Grosor del borde
+            }
+        ).setOrigin(0.5, 0.5);
+
+        // Botones
+        this.createButton('1 Player', 50);
+        this.createButton('2 Player', 100);
     }
 
-    update() {
+    createButton(text, yOffset) {
+        let button = this.add.text(
+            this.cameras.main.centerX,
+            yOffset + this.cameras.main.centerY,
+            text,
+            {
+                fontFamily: 'gummy',
+                fontSize: 25,
+                color: 'White',
+                stroke: '0x' + Math.floor(Math.random()*16777215).toString(16), // Borde de color aleatorio
+                strokeThickness: 4 // Grosor del borde
+            }
+        ).setOrigin(0.5, 0.5);
 
+        button.setInteractive();
+        button.on("pointerdown", () => {
+            this.scene.start("Level");
+        });
     }
+
+    update() {}
 }
