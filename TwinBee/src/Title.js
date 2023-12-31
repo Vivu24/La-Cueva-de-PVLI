@@ -24,6 +24,8 @@ export default class Title extends Phaser.Scene {
         // Botones
         this.createButton('1 Player', 50);
         this.createButton('2 Player', 100);
+
+        console.log("title")
     }
 
     createButton(text, yOffset) {

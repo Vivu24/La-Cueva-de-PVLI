@@ -24,8 +24,8 @@ export default class Boot extends Phaser.Scene{
     loadAnimations(){
         // Creamos Animaciones
         this.anims.create({
-            key: 'walkClown',
-            frames: this.anims.generateFrameNumbers('clown', {start:0, end:1}),
+            key: 'twinbeeMove',
+            frames: this.anims.generateFrameNumbers('twinbee', {start:0, end:1}),
             frameRate: 5,
             repeat: -1
         });
