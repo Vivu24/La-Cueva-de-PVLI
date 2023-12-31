@@ -22,13 +22,13 @@ export default class Title extends Phaser.Scene {
         ).setOrigin(0.5, 0.5);
 
         // Botones
-        this.createButton('1 Player', 50);
-        this.createButton('2 Player', 100);
+        this.createButton('1 Player', 50, 1);
+        this.createButton('2 Player', 100, 2);
 
         console.log("title")
     }
 
-    createButton(text, yOffset) {
+    createButton(text, yOffset, players) {
         let button = this.add.text(
             this.cameras.main.centerX,
             yOffset + this.cameras.main.centerY,
@@ -44,7 +44,7 @@ export default class Title extends Phaser.Scene {
 
         button.setInteractive();
         button.on("pointerdown", () => {
-            this.scene.start("Level");
+            this.scene.start("Level", {nPlayers : players});
         });
     }
 

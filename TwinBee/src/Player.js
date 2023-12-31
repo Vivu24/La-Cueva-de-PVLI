@@ -1,28 +1,38 @@
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, { key: 'player' });
+    constructor(scene, x, y, number) {
+        super(scene, x, y, number, { key: 'player' });
+        this.number = number;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
-        this.playerOffsetRight = {x:0, y: 0}
-        this.playerOffsetLeft = {x:0, y:0}
-
+        this.playerOffsetRight = {x:0, y: 0};
+        this.playerOffsetLeft = {x:0, y:0};
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16)
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
-        this.cursors = scene.input.keyboard.addKeys({
-            up: Phaser.Input.Keyboard.KeyCodes.W,
-            down: Phaser.Input.Keyboard.KeyCodes.S,
-            left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D,
-            interact: Phaser.Input.Keyboard.KeyCodes.E,
-            esc:  Phaser.Input.Keyboard.KeyCodes.ESC
-            
-        });
+        if (this.number == 1){
+            this.cursors = scene.input.keyboard.addKeys({
+                up: Phaser.Input.Keyboard.KeyCodes.W,
+                down: Phaser.Input.Keyboard.KeyCodes.S,
+                left: Phaser.Input.Keyboard.KeyCodes.A,
+                right: Phaser.Input.Keyboard.KeyCodes.D,
+                shoot: Phaser.Input.Keyboard.KeyCodes.SPACE         
+            });
+        }   
+        else {
+            this.cursors = scene.input.keyboard.addKeys({
+                up: Phaser.Input.Keyboard.KeyCodes.UP,
+                down: Phaser.Input.Keyboard.KeyCodes.DOWN,
+                left: Phaser.Input.Keyboard.KeyCodes.LEFT,
+                right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
+                shoot: Phaser.Input.Keyboard.KeyCodes.ENTER         
+            });
+        }
+        
         
        
         // Velocidad del jugador
-        this.speed = 100;
+        this.speed = 50;
     }
     preUpdate(t,dt) {
         super.preUpdate(t,dt)
@@ -55,10 +65,30 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 
     setAnimation() {
-        if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
-            this.anims.play('twinbeeMove', true);
-        } else {
-            this.anims.play('twinbeeMove', true);
+
+        if (this.number == 1){
+            if (this.body.velocity.x < 0) {
+                this.anims.play('twinbeeMoveLeft', true);
+            } 
+            else if (this.body.velocity.x > 0){
+                this.anims.play('twinbeeMoveRight', true);
+            }
+            else {
+                this.anims.play('twinbeeMove', true);
+            }
+
+        }
+
+        else {
+            if (this.body.velocity.x < 0) {
+                this.anims.play('winbeeMoveLeft', true);
+            } 
+            else if (this.body.velocity.x > 0){
+                this.anims.play('winbeeMoveRight', true);
+            }
+            else {
+                this.anims.play('winbeeMove', true);
+            }
         }
     }
 }
