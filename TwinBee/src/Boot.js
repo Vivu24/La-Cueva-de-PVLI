@@ -65,6 +65,12 @@ export default class Boot extends Phaser.Scene{
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'explosionNabo',
+            frames: this.anims.generateFrameNumbers('explosion', {start:0, end:2}),
+            frameRate: 5,
+            repeat: -1
+        });
     }
 
     create()

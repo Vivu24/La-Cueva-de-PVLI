@@ -6,6 +6,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.world.enable(this);
         this.playerOffsetRight = {x:0, y: 0};
         this.playerOffsetLeft = {x:0, y:0};
+        this.isDead = false;
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16)
@@ -90,5 +91,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('winbeeMove', true);
             }
         }
+    }
+
+    freeze(){
+        this.body.setAllowGravity(false);
+        this.setVelocityX(0);
+        this.setVelocityY(0);
     }
 }
