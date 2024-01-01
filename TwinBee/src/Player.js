@@ -9,6 +9,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.playerOffsetRight = { x: 0, y: 0 };
         this.playerOffsetLeft = { x: 0, y: 0 };
         this.isDead = false;
+        this.inputEnable = true;
         this.lastShotTime = 0;  // Tiempo del último disparo
         this.shootCooldown = 1000;  // Cooldown en milisegundos
 
@@ -44,30 +45,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     move(t) {
-        // Establecer la velocidad basada en las teclas presionadas
-        this.setVelocity(0);
 
-        if (this.cursors.up.isDown) {
-            this.setVelocityY(-this.speed);
-        } else if (this.cursors.down.isDown) {
-            this.setVelocityY(this.speed);
+        if (this.inputEnable){
+            // Establecer la velocidad basada en las teclas presionadas
+            this.setVelocity(0);
+    
+            if (this.cursors.up.isDown) {
+                this.setVelocityY(-this.speed);
+            } else if (this.cursors.down.isDown) {
+                this.setVelocityY(this.speed);
+            }
+    
+            if (this.cursors.left.isDown) {
+                this.moveHorizontal(-this.speed);
+            } else if (this.cursors.right.isDown) {
+                this.moveHorizontal(this.speed);
+            }
+    
+            // Disparar solo si ha pasado el tiempo de cooldown
+            if (this.cursors.shoot.isDown && t - this.lastShotTime > this.shootCooldown) {
+                const bullet = new Bullet(this.scene, this.x, this.y);
+                this.scene.bulletsPool.push(bullet);
+                this.lastShotTime = t;  // Actualiza el tiempo del último disparo
+            }
+    
+            // Ajusta la animación de acuerdo con la velocidad
+            this.setAnimation();
         }
+    }
 
-        if (this.cursors.left.isDown) {
-            this.moveHorizontal(-this.speed);
-        } else if (this.cursors.right.isDown) {
-            this.moveHorizontal(this.speed);
-        }
-
-        // Disparar solo si ha pasado el tiempo de cooldown
-        if (this.cursors.shoot.isDown && t - this.lastShotTime > this.shootCooldown) {
-            const bullet = new Bullet(this.scene, this.x, this.y);
-            this.scene.bulletsPool.push(bullet);
-            this.lastShotTime = t;  // Actualiza el tiempo del último disparo
-        }
-
-        // Ajusta la animación de acuerdo con la velocidad
-        this.setAnimation();
+    desactivateInput(){
+        this.inputEnable = false;
     }
 
     moveHorizontal(velocity) {

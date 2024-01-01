@@ -5,6 +5,8 @@ import Bullet from "./Bullet.js";
 export default class Level extends Phaser.Scene {
     constructor() {
         super({ key: 'Level' });
+
+        this.gameCompleted = false;
     }
 
     init(data) {
@@ -12,8 +14,7 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
-        this.background = this.add.image(0, 0, "background").setOrigin(0, 0.75);
-        this.initialBackgroundY = this.background.y; // Guardar la posición inicial del fondo
+        this.background = this.add.image(0, this.cameras.main.height, "background").setOrigin(0, 1);
 
         this.players = [];
         this.enemiesPool = [];
@@ -33,13 +34,12 @@ export default class Level extends Phaser.Scene {
     }
 
     update() {
-        // Deslizar el fondo hacia abajo
-        this.background.y += 0.5;
-
         // Comprobar si el fondo ha llegado al final de la imagen
-        if (this.background.y >= this.initialBackgroundY + this.background.height) {
-            // Detener el fondo
-            this.background.y = this.initialBackgroundY + this.background.height;
+        if (!(this.background.y >= this.background.height - this.cameras.main.height)) {
+            this.background.y += 0.5;
+        }
+        else{
+            this.victoryAnimation();
         }
 
         // Itera sobre todos los enemigos en el objectsPool
@@ -51,24 +51,52 @@ export default class Level extends Phaser.Scene {
         });
     }
 
-    handlePlayerDamageCollision() {
-        console.log("Colisiona bro");
+    victoryAnimation() {
+        this.gameCompleted = true;
+        this.levelConclusionText("Victory");
+    
+        this.players.forEach(player => {
+            player.freeze();
+            player.desactivateInput();
+            if (player.number == 1){
+                player.anims.play('twinbeeMoveRight', true);
+            }
+            else {
+                player.anims.play('winbeeMoveRight', true);
+            }
+    
+            this.time.delayedCall(500, () => {
+                player.setVelocityY(-50);
+            }, [], this);
+    
+            for (let i = 0; i < 75; i++) {
+                this.time.delayedCall(30, () => {
+                    player.setVelocityY(player.body.velocity.y - 1);
+                    console.log(player.body.velocity.y)
+                }, [], this);
+            }
+        });  
 
+        // Agregar un retraso de 5 segundos antes de saltar al menú
+        this.time.delayedCall(5000, this.delayedMenuTransition, [], this);
+    }
+
+    handlePlayerDamageCollision() {
         // Agregar un retraso de 3 segundos antes de saltar al menú
         this.time.delayedCall(2000, this.delayedMenuTransition, [], this);
     }
 
     delayedMenuTransition() {
-        console.log("delayedmenu");
         // Saltar a la escena del Título
         this.scene.start("Title");
     }
 
     spawnNabo() {
         const createEnemy = () => {
-            console.log("Creo nabo");
-            const myEnemy = new Enemy(this, Phaser.Math.Between(0, this.cameras.main.width), -50);
-            this.enemiesPool.push(myEnemy);
+            if(!this.gameCompleted){
+                const myEnemy = new Enemy(this, Phaser.Math.Between(25, this.cameras.main.width - 25), -50);
+                this.enemiesPool.push(myEnemy);
+            }
         };
 
         this.time.addEvent({
