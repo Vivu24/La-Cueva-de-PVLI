@@ -13,9 +13,9 @@ export default class Boot extends Phaser.Scene{
 
         // Cargamos Imagenes
         this.load.image('background', './assets/images/background.png');
-        this.load.image('stars', './assets/images/background_hcontrast.png');
-        this.load.image('platform', './assets/images/bullet.png');
-        this.load.image('platform', './assets/images/green.png');
+        this.load.image('background_hcontrast', './assets/images/background_hcontrast.png');
+        this.load.image('bullet', './assets/images/bullet.png');
+        this.load.image('green', './assets/images/green.png');
 
         // Cargamos Audio
         this.load.audio('deadSound', './assets/sounds/dead.wav');

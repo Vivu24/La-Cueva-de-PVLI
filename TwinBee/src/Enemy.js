@@ -1,6 +1,10 @@
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, { key: 'Enemy' });
+
+        // Asignar un identificador único al enemigo
+        this.enemyId = Phaser.Math.RND.uuid(); // Usa el generador de UUID de Phaser
+
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.playerOffsetRight = {x: 0, y: 0};
@@ -24,13 +28,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     move() {
-        this.setVelocityY(20);
-
-        if (!this.isDead){
+        if (!this.isDead){            
+            this.setVelocityY(20);
             this.anims.play('naboRotando', true);
-        }
-        else{
-            this.anims.play('explosionNabo', true);
         }
     }
 
@@ -58,10 +58,20 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         return collision;
     }
 
+    selfDestroy(){
+        console.log("Me destruyo antes")
+        this.destroy();
+        console.log("Me destruyo despues")
+    }
+
     freeze(){
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
-        console.log("freeze")
+        console.log("freeze del enemy")
+    }
+
+    getId() {
+        return this.enemyId;
     }
 }

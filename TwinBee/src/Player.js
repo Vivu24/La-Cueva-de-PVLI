@@ -1,46 +1,49 @@
+import Bullet from "./Bullet.js";
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, number) {
         super(scene, x, y, number, { key: 'player' });
         this.number = number;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
-        this.playerOffsetRight = {x:0, y: 0};
-        this.playerOffsetLeft = {x:0, y:0};
+        this.playerOffsetRight = { x: 0, y: 0 };
+        this.playerOffsetLeft = { x: 0, y: 0 };
         this.isDead = false;
+        this.lastShotTime = 0;  // Tiempo del último disparo
+        this.shootCooldown = 1000;  // Cooldown en milisegundos
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16)
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
-        if (this.number == 1){
+
+        if (this.number == 1) {
             this.cursors = scene.input.keyboard.addKeys({
                 up: Phaser.Input.Keyboard.KeyCodes.W,
                 down: Phaser.Input.Keyboard.KeyCodes.S,
                 left: Phaser.Input.Keyboard.KeyCodes.A,
                 right: Phaser.Input.Keyboard.KeyCodes.D,
-                shoot: Phaser.Input.Keyboard.KeyCodes.SPACE         
+                shoot: Phaser.Input.Keyboard.KeyCodes.SPACE
             });
-        }   
-        else {
+        } else {
             this.cursors = scene.input.keyboard.addKeys({
                 up: Phaser.Input.Keyboard.KeyCodes.UP,
                 down: Phaser.Input.Keyboard.KeyCodes.DOWN,
                 left: Phaser.Input.Keyboard.KeyCodes.LEFT,
                 right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
-                shoot: Phaser.Input.Keyboard.KeyCodes.ENTER         
+                shoot: Phaser.Input.Keyboard.KeyCodes.ENTER
             });
         }
-        
-        
-       
+
         // Velocidad del jugador
         this.speed = 50;
     }
-    preUpdate(t,dt) {
-        super.preUpdate(t,dt)
-        this.move();
-        
+
+    preUpdate(t, dt) {
+        super.preUpdate(t, dt);
+        this.move(t);
     }
-    move() {
+
+    move(t) {
         // Establecer la velocidad basada en las teclas presionadas
         this.setVelocity(0);
 
@@ -56,6 +59,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.moveHorizontal(this.speed);
         }
 
+        // Disparar solo si ha pasado el tiempo de cooldown
+        if (this.cursors.shoot.isDown && t - this.lastShotTime > this.shootCooldown) {
+            const bullet = new Bullet(this.scene, this.x, this.y);
+            this.scene.bulletsPool.push(bullet);
+            this.lastShotTime = t;  // Actualiza el tiempo del último disparo
+        }
+
         // Ajusta la animación de acuerdo con la velocidad
         this.setAnimation();
     }
@@ -63,7 +73,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     moveHorizontal(velocity) {
         this.setVelocityX(velocity);
     }
-
 
     setAnimation() {
 
