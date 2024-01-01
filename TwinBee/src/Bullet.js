@@ -34,7 +34,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     move() {
-        this.setVelocityY(-50);
+        this.setVelocityY(-100);
     }
 
     freeze(){

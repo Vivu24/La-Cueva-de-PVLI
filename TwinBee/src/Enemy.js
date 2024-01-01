@@ -17,9 +17,17 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y);
 
         // Desactivar la gravedad
-        //this.body.setGravity(0, 0);
-        this.body.setAllowGravity(true)
+        this.body.setAllowGravity(true);
 
+        // Añadir tween para movimiento armónico simple con duración más larga
+        this.tween = this.scene.tweens.add({
+            targets: this,
+            x: x + 75, // Ajusta la amplitud del movimiento
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            duration: 3000 // Ajusta la duración del tween (en milisegundos)
+        });
     }
 
     preUpdate(t, dt) {
@@ -28,8 +36,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     move() {
-        if (!this.isDead){            
-            this.setVelocityY(20);
+        if (!this.isDead) {            
+            this.setVelocityY(40);
             this.anims.play('naboRotando', true);
         }
     }
@@ -50,25 +58,26 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             // Por ejemplo, podrías desencadenar la lógica de colisión aquí
             player.destroy();
 
-            scene.levelConclusionText("Defeat")
+            scene.levelConclusionText("Defeat");
 
-            scene.handlePlayerDamageCollision()
+            scene.handlePlayerDamageCollision();
         }
 
         return collision;
     }
 
     selfDestroy(){
-        console.log("Me destruyo antes")
+        console.log("Me destruyo antes");
         this.destroy();
-        console.log("Me destruyo despues")
+        console.log("Me destruyo despues");
     }
 
     freeze(){
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
-        console.log("freeze del enemy")
+        console.log("freeze del enemy");
+        this.tween.stop();  // Detener el tween al congelar al enemigo
     }
 
     getId() {

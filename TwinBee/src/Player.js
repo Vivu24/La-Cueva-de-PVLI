@@ -35,7 +35,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         // Velocidad del jugador
-        this.speed = 50;
+        this.speed = 40;
     }
 
     preUpdate(t, dt) {
