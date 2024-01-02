@@ -1,0 +1,8 @@
+
+
+- jetpac.png: frames de 17x24
+- explosion.png: frames de 24x17
+- meteor.png: frames de 16x14
+- tileset.png: Los tiles son de 8x8 
+
+- La fuente es se llama Pixeled dentro del juego

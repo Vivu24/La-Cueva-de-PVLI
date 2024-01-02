@@ -1,6 +1,7 @@
 import Player from "./Player.js";
 import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js";
+import Green from "./Green.js";
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -19,15 +20,17 @@ export default class Level extends Phaser.Scene {
         this.players = [];
         this.enemiesPool = [];
         this.bulletsPool = [];
+        this.greensPool = [];
 
         for (let i = 1; i <= this.amountOfPlayers; i++) {
             console.log("Creo Player número " + i)
             const player = new Player(this, (this.cameras.main.width / (this.amountOfPlayers + 1)) * i, 200, i);
-            this.players.push(player);
-            console.log(player);
+            player.setCollideWorldBounds(true);            
+            this.players.push(player);            
         }
-
+        
         this.spawnNabo();
+        this.spawnGreen();
 
         this.physics.add.collider(this.enemiesPool, this.bulletsPool, this.enemiesAndBulletCollision.bind(this));
         console.log("level");
@@ -49,6 +52,12 @@ export default class Level extends Phaser.Scene {
                 enemy.checkCollisionWithPlayer(this, player);
             });
         });
+        this.greensPool.forEach(green => {
+            // Verifica la colisión con cada jugador
+            this.players.forEach(player => {
+                green.checkCollisionWithPlayer(this, player);
+            });
+        });
     }
 
     victoryAnimation() {
@@ -56,6 +65,7 @@ export default class Level extends Phaser.Scene {
         this.levelConclusionText("Victory");
     
         this.players.forEach(player => {
+            player.setCollideWorldBounds(false); 
             player.freeze();
             player.desactivateInput();
             if (player.number == 1){
@@ -94,7 +104,7 @@ export default class Level extends Phaser.Scene {
     spawnNabo() {
         const createEnemy = () => {
             if(!this.gameCompleted){
-                const myEnemy = new Enemy(this, Phaser.Math.Between(25, this.cameras.main.width - 25), -50);
+                const myEnemy = new Enemy(this, Phaser.Math.Between(75, this.cameras.main.width - 75), -50, Phaser.Math.RND.sign());
                 this.enemiesPool.push(myEnemy);
             }
         };
@@ -103,6 +113,22 @@ export default class Level extends Phaser.Scene {
             delay: 3000,
             loop: true,
             callback: createEnemy,
+            callbackScope: this
+        });
+    }
+
+    spawnGreen() {
+        const createGreen = () => {
+            if(!this.gameCompleted){
+                const myGreen = new Green(this, Phaser.Math.Between(75, this.cameras.main.width - 75), -50);
+                this.greensPool.push(myGreen);
+            }
+        };
+
+        this.time.addEvent({
+            delay: 5000,
+            loop: true,
+            callback: createGreen,
             callbackScope: this
         });
     }

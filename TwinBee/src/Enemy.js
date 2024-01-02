@@ -1,10 +1,10 @@
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, { key: 'Enemy' });
+    constructor(scene, x, y, direction) {
+        super(scene, x, y, direction, { key: 'Enemy' });
 
         // Asignar un identificador único al enemigo
         this.enemyId = Phaser.Math.RND.uuid(); // Usa el generador de UUID de Phaser
-
+        this.direction = direction;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.playerOffsetRight = {x: 0, y: 0};
@@ -22,7 +22,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         // Añadir tween para movimiento armónico simple con duración más larga
         this.tween = this.scene.tweens.add({
             targets: this,
-            x: x + 75, // Ajusta la amplitud del movimiento
+            x: x + 75 * this.direction, // Ajusta la amplitud del movimiento
             ease: 'Sine.easeInOut',
             yoyo: true,
             repeat: -1,
@@ -52,10 +52,6 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         const collision = this.scene.physics.world.overlap(this, player);
 
         if (collision) {
-            // Colisión detectada, realiza acciones necesarias
-            console.log("Colisión con el jugador");
-
-            // Por ejemplo, podrías desencadenar la lógica de colisión aquí
             player.destroy();
 
             scene.levelConclusionText("Defeat");
@@ -67,16 +63,13 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     selfDestroy(){
-        console.log("Me destruyo antes");
         this.destroy();
-        console.log("Me destruyo despues");
     }
 
     freeze(){
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
-        console.log("freeze del enemy");
         this.tween.stop();  // Detener el tween al congelar al enemigo
     }
 

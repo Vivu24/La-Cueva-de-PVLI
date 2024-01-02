@@ -1,9 +1,11 @@
 export default class Bullet extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, 'Bullet'); // La clave 'Bullet' se usa para cargar la imagen
+    constructor(scene, x, y, directionX) {
+        super(scene, x, y, directionX, 'Bullet'); // La clave 'Bullet' se usa para cargar la imagen
 
         // Asignar un identificador único a la bala
         this.bulletId = Phaser.Math.RND.uuid(); // Usa el generador de UUID de Phaser
+
+        this.directionX = directionX;
 
         // Agregar el sprite al escenario y habilitar las físicas
         this.scene.add.existing(this);
@@ -34,14 +36,14 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     move() {
-        this.setVelocityY(-100);
+        this.setVelocityY(-175);
+        this.setVelocityX(this.directionX);
     }
 
     freeze(){
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
-        console.log("freeze")
     }
 
     getId() {

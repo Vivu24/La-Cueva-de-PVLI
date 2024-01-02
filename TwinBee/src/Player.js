@@ -12,6 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.inputEnable = true;
         this.lastShotTime = 0;  // Tiempo del último disparo
         this.shootCooldown = 1000;  // Cooldown en milisegundos
+        this.shootingLevel = 1;
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16)
@@ -64,9 +65,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     
             // Disparar solo si ha pasado el tiempo de cooldown
             if (this.cursors.shoot.isDown && t - this.lastShotTime > this.shootCooldown) {
-                const bullet = new Bullet(this.scene, this.x, this.y);
-                this.scene.bulletsPool.push(bullet);
-                this.lastShotTime = t;  // Actualiza el tiempo del último disparo
+                this.shoot(t, this.shootingLevel)
             }
     
             // Ajusta la animación de acuerdo con la velocidad
@@ -74,6 +73,25 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    shoot(t, level) {
+        if (level == 1) {
+            this.createBullet(t, 0);
+        } else if (level == 2) {
+            this.createBullet(t, -10);
+            this.createBullet(t, 10);
+        } else {
+            this.createBullet(t, -30);
+            this.createBullet(t, -10);
+            this.createBullet(t, 10);
+            this.createBullet(t, 30);
+        }
+    }
+
+    createBullet(t, directionX) {
+        const bullet = new Bullet(this.scene, this.x, this.y, directionX);
+        this.scene.bulletsPool.push(bullet);
+        this.lastShotTime = t;  // Actualiza el tiempo del último disparo
+    }
     desactivateInput(){
         this.inputEnable = false;
     }
@@ -114,5 +132,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
+    }
+
+    upgradeShootingLevel(){
+        this.shootingLevel++;
     }
 }

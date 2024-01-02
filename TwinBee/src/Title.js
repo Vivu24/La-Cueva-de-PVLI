@@ -16,19 +16,17 @@ export default class Title extends Phaser.Scene {
                 fontFamily: 'gummy',
                 fontSize: 50,
                 color: 'White',
-                stroke: '0x' + Math.floor(Math.random()*16777215).toString(16), // Borde de color aleatorio
+                stroke: '#' + Math.floor(Math.random() * 16777215).toString(16), // Borde de color aleatorio
                 strokeThickness: 6 // Grosor del borde
             }
         ).setOrigin(0.5, 0.5);
 
         // Botones
-        this.createButton('1 Player', 50, 1);
-        this.createButton('2 Player', 100, 2);
-
-        console.log("title")
+        this.createButton('1 Player', 50, 1, 'blue', 'orange');
+        this.createButton('2 Player', 100, 2, 'red', 'blue');
     }
 
-    createButton(text, yOffset, players) {
+    createButton(text, yOffset, players, textColor, strokeColor) {
         let button = this.add.text(
             this.cameras.main.centerX,
             yOffset + this.cameras.main.centerY,
@@ -36,9 +34,9 @@ export default class Title extends Phaser.Scene {
             {
                 fontFamily: 'gummy',
                 fontSize: 25,
-                color: 'White',
-                stroke: '0x' + Math.floor(Math.random()*16777215).toString(16), // Borde de color aleatorio
-                strokeThickness: 4 // Grosor del borde
+                color: textColor,
+                stroke: strokeColor,
+                strokeThickness: 2 // Grosor del borde
             }
         ).setOrigin(0.5, 0.5);
 

@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Pixeled';
+  src: url('../fonts/Minecraftia.ttf') format('truetype');
+}
+h1 {
+  text-align: center;
+  font-family: 'Pixeled', monospace;
+}
