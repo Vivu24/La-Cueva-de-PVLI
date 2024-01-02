@@ -13,6 +13,13 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 480 },
+                debug: true
+            }
+        },
         scene: [ Boot, Title, Level ]
     };
 

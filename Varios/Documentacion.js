@@ -145,3 +145,23 @@ selfDestroy() {
 // ... Resto del código de la clase Player
 Con estos cambios, deberías evitar el error que estás experimentando. Asegúrate de realizar estos ajustes y prueba nuevamente.*/
 
+
+
+/*+++++++TILEMAP+++++++*/
+
+this.load.tilemapTiledJSON('tilemap', './assets/map/mapita.json');
+this.load.image('tileset', './assets/sprites/tileset.png');   
+
+const map = this.make.tilemap({
+    key: "tilemap",
+    tileWidth: 8,
+    tileHeight: 8
+})
+
+const tileset = map.addTilesetImage("ground_ts","tileset");     //("NombreDePestañaDeTiled", "tilesetQueHemosDeclaradoArriba")
+
+const groundLayer = map.createLayer('ground', tileset);         //("NombreCapaDeTiled")
+
+groundLayer.setCollisionByProperty({ collides: true });         //("HayQuePonerEstaPropiedadEnElEditorDeTiled")
+
+this.physics.add.collider(player, groundLayer);                 // Lógicamente necesitamos un player para activar sus colisiones
