@@ -1,4 +1,5 @@
 import Player from "./Player.js";
+import Meteor from "./Meteor.js";
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -22,6 +23,8 @@ export default class Level extends Phaser.Scene {
         groundLayer.setCollisionByProperty({ collides: true });
 
         this.physics.add.collider(this.player, groundLayer);
+
+        this.spawnMeteor();
     }
 
     update() {
@@ -35,5 +38,20 @@ export default class Level extends Phaser.Scene {
         else if (this.player.x < 0){
             this.player.x = this.cameras.main.width;
         }
+    }
+
+    spawnMeteor() {
+        const createMeteor = () => {
+            if(!this.gameCompleted){
+                this.meteor = new Meteor(this, Phaser.Math.Between(0, this.cameras.main.width), -0);
+            }
+        };
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: createMeteor,
+            callbackScope: this
+        });
     }
 }

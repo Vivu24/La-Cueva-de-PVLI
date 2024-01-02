@@ -53,6 +53,12 @@ export default class Boot extends Phaser.Scene{
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'fallingMeteor',
+            frames: this.anims.generateFrameNumbers('meteor', {start:0, end:1}),
+            frameRate: 5,
+            repeat: -1
+        });
     }
 
     create()
