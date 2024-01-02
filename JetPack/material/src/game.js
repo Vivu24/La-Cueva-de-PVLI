@@ -1,3 +1,6 @@
+import Level from './Level.js';
+import Title from './Title.js';
+import Boot from './Boot.js';
 
 window.onload = ()=>{
 
@@ -10,7 +13,7 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
-        scene: [  ]
+        scene: [ Boot, Title, Level ]
     };
 
     new Phaser.Game(config);
