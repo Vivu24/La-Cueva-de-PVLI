@@ -1,0 +1,14 @@
+/*@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');*/
+
+@font-face {
+  font-family: 'suikaFont';
+  src: url('../assets/fonts/Cute\ Love.ttf') format('truetype');
+}
+h1 {
+  text-align: center;
+  font-family: 'arcade_classic', monospace;
+}
+h4{
+  text-align: center;
+  font-family: 'arcade_classic', monospace;
+}
