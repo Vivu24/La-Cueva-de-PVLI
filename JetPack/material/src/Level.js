@@ -17,6 +17,7 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
+        this.gameCompleted = false;
         this.currentFuel = 0;
         this.meteorsPool = [];
         this.fuelsPool = [];
