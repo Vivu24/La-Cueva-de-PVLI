@@ -12,6 +12,7 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable(true);
         this.isDead = false;
         this.angle += 90;
+        this.angle -= this.direction;
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16);
@@ -23,12 +24,15 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        this.move();     
+        this.move();
+        this.checkFloorCollision();
     }
 
     move() {
         if (!this.isDead) {            
             this.setVelocityY(40);
+            console.log(this.direction)
+            this.setVelocityX(this.direction);
             this.anims.play('fallingMeteor', true);
         }
     }
@@ -43,14 +47,21 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
         const collision = this.scene.physics.world.overlap(this, player);
 
         if (collision) {
+            this.time.delayedCall(500, () => {    
+                
+            this.anims.play('explosionAnimation', true);
+            }, [], this);
+                        
             player.destroy();
+            
         }
-
+        
         return collision;
     }
 
     checkFloorCollision(){
         if(this.body.blocked.down || this.body.touching.down){
+
             this.destroy();
         }
     }

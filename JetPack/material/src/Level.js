@@ -7,8 +7,9 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
+        this.meteorsPool = [];
 
-        this.player = new Player(this, 100, 0,);
+        this.player = new Player(this, 100, 0);
 
         const map = this.make.tilemap({
             key: "tilemap",
@@ -18,11 +19,11 @@ export default class Level extends Phaser.Scene {
 
         const tileset = map.addTilesetImage("ground_ts","tileset");
 
-        const groundLayer = map.createLayer('ground', tileset);
+        this.groundLayer = map.createLayer('ground', tileset);
 
-        groundLayer.setCollisionByProperty({ collides: true });
+        this.groundLayer.setCollisionByProperty({ collides: true });
 
-        this.physics.add.collider(this.player, groundLayer);
+        this.physics.add.collider(this.player, this.groundLayer);
 
         this.spawnMeteor();
     }
@@ -38,12 +39,24 @@ export default class Level extends Phaser.Scene {
         else if (this.player.x < 0){
             this.player.x = this.cameras.main.width;
         }
+
+        this.meteorsPool.forEach(meteor => {
+            if (meteor.x > this.cameras.main.width){
+                meteor.x = 0;
+            }
+            else if (meteor.x < 0){
+                meteor.x = this.cameras.main.width;
+            }
+        });
     }
 
     spawnMeteor() {
         const createMeteor = () => {
             if(!this.gameCompleted){
-                this.meteor = new Meteor(this, Phaser.Math.Between(0, this.cameras.main.width), -0);
+                const meteor = new Meteor(this, Phaser.Math.Between(0, this.cameras.main.width), -20, Phaser.Math.Between(-50, 50));
+                this.physics.add.collider(meteor, this.groundLayer);
+
+                this.meteorsPool.push(meteor);     
             }
         };
 
