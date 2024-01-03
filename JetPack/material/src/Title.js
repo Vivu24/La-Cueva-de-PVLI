@@ -39,7 +39,7 @@ export default class Title extends Phaser.Scene {
 
         button.setInteractive();
         button.on("pointerdown", () => {
-            this.scene.start("Level");
+            this.scene.start("Level", {maxFuel : unidades, meteorCooldown : sec});
         });
     }
 

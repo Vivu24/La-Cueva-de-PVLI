@@ -31,13 +31,12 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
     move() {
         if (!this.isDead) {            
             this.setVelocityY(40);
-            console.log(this.direction)
             this.setVelocityX(this.direction);
             this.anims.play('fallingMeteor', true);
         }
     }
 
-    checkCollisionWithPlayer(scene, player) {
+    checkCollisionWithPlayer(player) {
         if (this.isDead) {
             // Si el enemigo ya está muerto, no hay colisión
             return false;
@@ -47,22 +46,29 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
         const collision = this.scene.physics.world.overlap(this, player);
 
         if (collision) {
-            this.time.delayedCall(500, () => {    
-                
+            this.isDead = true;
             this.anims.play('explosionAnimation', true);
-            }, [], this);
-                        
             player.destroy();
-            
+
+            this.scene.time.delayedCall(500, () => {                 
+                this.scene.goToTitle()
+                this.destroy()
+            }, [], this);                     
         }
         
         return collision;
     }
 
     checkFloorCollision(){
-        if(this.body.blocked.down || this.body.touching.down){
+        if(this.body.blocked.down || this.body.touching.down || this.body.blocked.left || this.body.blocked.right){
+            this.isDead = true;
+            this.freeze()
+            this.anims.play('explosionAnimation', true);
 
-            this.destroy();
+            this.scene.time.delayedCall(2000, () => { 
+                this.destroy()
+            }, [], this);  
+
         }
     }
 
@@ -74,7 +80,6 @@ export default class Meteor extends Phaser.Physics.Arcade.Sprite {
         this.body.setAllowGravity(false);
         this.setVelocityX(0);
         this.setVelocityY(0);
-        this.tween.stop();  // Detener el tween al congelar al enemigo
     }
 
     getId() {

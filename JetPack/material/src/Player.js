@@ -15,9 +15,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.cursors = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D,
-            interact: Phaser.Input.Keyboard.KeyCodes.E,
-            esc: Phaser.Input.Keyboard.KeyCodes.ESC,
+            right: Phaser.Input.Keyboard.KeyCodes.D
         });
 
         this.anims.play('idlePlayer', true);
@@ -57,6 +55,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0);
             this.setVelocityY(0);
         }
+    }
+    
+    freeze(){
+        this.body.setAllowGravity(false);
+        this.setVelocityX(0);
+        this.setVelocityY(0);
     }
 
     selfDestroy() {
