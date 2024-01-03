@@ -1,3 +1,6 @@
+import Spawner from "./Spawner.js";
+import Fruit from "./Fruit.js";
+
 export default class Level extends Phaser.Scene {
     constructor() {
         super({ key: 'Level' });
@@ -20,10 +23,19 @@ export default class Level extends Phaser.Scene {
         this.score = 0;
         this.HUD();
 
+        this.currentFruitNumber = Phaser.Math.Between(1, 4)
+        this.nextFruitNumber = Phaser.Math.Between(1, 4)
+
         const limitHeight = 200;
         
         // Creamos limit
-        this.limit = this.add.image(this.cameras.main.centerX, limitHeight, "limit")
+        this.limit = this.add.image(this.cameras.main.centerX, limitHeight, "limit");
+
+        this.spawner = new Spawner(this, this.cameras.main.centerX, limitHeight);
+    }
+
+    generateRandomFruit(){
+        const fruit = new Fruit (this, this.spawner.x, this.spawner.y, this.currentFruitNumber)
     }
 
     update() {

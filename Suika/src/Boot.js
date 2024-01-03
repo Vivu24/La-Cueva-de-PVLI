@@ -19,6 +19,8 @@ export default class Boot extends Phaser.Scene{
         this.load.image('fruit11', './assets/sprites/fruit11.png');
 
         this.load.image('limit', './assets/sprites/limit.png');
+
+        this.load.image('spawner', './assets/sprites/transparentPixel.png');
     }
 
     loadAnimations(){
