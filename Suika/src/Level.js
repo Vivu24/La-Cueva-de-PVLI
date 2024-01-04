@@ -19,6 +19,13 @@ export default class Level extends Phaser.Scene {
     }
 
     initializeScene(){
+        // Paramos el audio
+        this.sound.stopAll();
+        // Cargamos la Música
+        this.music = this.sound.add('music', { loop: true, volume: 0.5 });
+        // Empezamos la Música
+        this.music.play();
+
         this.matter.world.setBounds();
         this.gameCompleted = false;
         this.score = 0;
@@ -64,7 +71,7 @@ export default class Level extends Phaser.Scene {
     }  
 
     initializeSpawner(){
-        this.spawner = new Spawner(this, this.cameras.main.centerX / 2, this.limitHeight, this.currentFruitNumber);
+        this.spawner = new Spawner(this, this.cameras.main.centerX, this.limitHeight - 50, this.currentFruitNumber);
         this.spawner.initializeTexture(this.fruitScale.get("fruit1"))
     }
     
@@ -141,15 +148,44 @@ export default class Level extends Phaser.Scene {
         this.nextFruitImage.setScale(0.25);
     }
 
-    victoryAnimation() {
-        this.gameCompleted = true;
+    checkLimit() {
+        console.log("CheckLimit");
+    
+        for (let i = 0; i < this.fruitsPool.length; i++) {
+            const fruit = this.fruitsPool[i];
+    
+            // Solo realiza la comprobación si la fruta no está congelada y no está muerta
+            if (!fruit.isDead && fruit && fruit.y !== undefined) {
+                // Ajusta la condición para verificar si al menos la mitad del cuerpo está por encima del límite
+                const halfBodyHeight = fruit.body.circleRadius * fruit.scaleY * 0.5;
+                if (fruit.y + halfBodyHeight <= this.limitHeight) {
+                    this.gameCompleted = true;
+                    this.finishAnimation();
+                    break; // Rompemos el bucle, ya que solo necesitamos activar la animación una vez
+                }
+            }
+        }
+    }
+    
+    
 
-        this.time.delayedCall(2000, () => {
-
-        }, [], this);
-
+    finishAnimation() {
+        this.levelConclusionText("Fail")
         // Agregar un retraso de 5 segundos antes de saltar al menú
         this.time.delayedCall(5000, this.goToTitle, [], this);
+    }
+
+    levelConclusionText(resolution) {
+        let title = this.add.text(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY,
+            resolution,
+            {
+                fontFamily: 'suikaFont',
+                fontSize: 100,
+                color: 'White'
+            }
+        ).setOrigin(0.5, 0.5);
     }
 
     fruitsCollisionLogic() {
@@ -157,14 +193,14 @@ export default class Level extends Phaser.Scene {
             event.pairs.forEach((pair) => {
                 const bodyA = pair.bodyA;
                 const bodyB = pair.bodyB;
-    
+                
                 // Verifica si ambos cuerpos son instancias de la clase Fruit
                 if (bodyA.gameObject instanceof Fruit && bodyB.gameObject instanceof Fruit) {
                     const fruitA = bodyA.gameObject;
                     const fruitB = bodyB.gameObject;
     
                     // Verifica si tienen el mismo número y si no están muertas
-                    if (fruitA.number === fruitB.number && !fruitA.isDead && !fruitB.isDead) {
+                    if (fruitA.number === fruitB.number && !fruitA.isDead && !fruitB.isDead && fruitA.number != 11) {
                         // Marca las frutas originales como muertas y destrúyelas
                         const auxX = (fruitA.x + fruitB.x) / 2;
                         const auxY = (fruitA.y + fruitB.y) / 2;

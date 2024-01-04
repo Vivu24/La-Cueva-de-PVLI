@@ -8,6 +8,10 @@ export default class Title extends Phaser.Scene {
 
         // Paramos el audio
         this.sound.stopAll();
+        // Cargamos la Música
+        this.music = this.sound.add('music', { loop: true, volume: 0.25 });
+        // Empezamos la Música
+        this.music.play();
 
         // Texto del Título con borde de color aleatorio
         let title = this.add.text(

@@ -25,7 +25,7 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
     }
 
     move(dt) {
-        if (!this.isDead) {
+        if (!this.scene.gameCompleted) {
             // Actualiza el cooldown
             this.dropCooldown = Math.max(0, this.dropCooldown - dt / 1000);
 
@@ -37,6 +37,7 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
 
             // Verifica si se puede soltar una fruta (cooldown ha terminado)
             if (this.cursors.drop.isDown && this.dropCooldown === 0) {
+                this.scene.checkLimit();
                 this.scene.generateRandomFruit();
                 this.dropCooldown = 1;  // Establece el cooldown a 1 segundo
             }
