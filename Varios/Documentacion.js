@@ -165,3 +165,15 @@ const groundLayer = map.createLayer('ground', tileset);         //("NombreCapaDe
 groundLayer.setCollisionByProperty({ collides: true });         //("HayQuePonerEstaPropiedadEnElEditorDeTiled")
 
 this.physics.add.collider(player, groundLayer);                 // Lógicamente necesitamos un player para activar sus colisiones
+
+
+/*+++++++DELAY+++++++*/
+
+this.time.delayedCall(5000, metodo(), [], this);                // 5 segs y se llama al método
+
+
+/*+++++++POOL+++++++*/
+
+this.pool = [];
+const element = new Element(this, x, y);
+this.pool.push(element);
