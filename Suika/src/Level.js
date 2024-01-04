@@ -7,6 +7,7 @@ export default class Level extends Phaser.Scene {
 
         this.gameCompleted = false;
         this.points = 0;
+        this.limitHeight = 200;
     }
 
     init(data) {
@@ -14,8 +15,7 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
-        this.initializeScene();
-        
+        this.initializeScene();        
     }
 
     initializeScene(){
@@ -28,13 +28,22 @@ export default class Level extends Phaser.Scene {
 
         this.currentFruitNumber = 1;
         this.nextFruitNumber = 2;
-
-        const limitHeight = 200;
                 
         // Creamos limit
-        this.limit = this.add.image(this.cameras.main.centerX, limitHeight, "limit");
+        this.limit = this.add.image(this.cameras.main.centerX, this.limitHeight, "limit");
 
-        this.initializeSpawner(limitHeight);
+        let nextText = this.add.text(
+            (this.cameras.main.centerX / 2) * 3 - 50,
+            this.cameras.main.centerY - 350,
+            'Next:',
+            {
+                fontFamily: 'suikaFont',
+                fontSize: 50,
+                color: 'White',
+            }
+        ).setOrigin(0.5, 0.5);
+
+        this.initializeSpawner();
 
         this.fruitsPool = [];
 
@@ -54,8 +63,8 @@ export default class Level extends Phaser.Scene {
         return data;
     }  
 
-    initializeSpawner(limitHeight){
-        this.spawner = new Spawner(this, this.cameras.main.centerX, limitHeight, this.currentFruitNumber);
+    initializeSpawner(){
+        this.spawner = new Spawner(this, this.cameras.main.centerX / 2, this.limitHeight, this.currentFruitNumber);
         this.spawner.initializeTexture(this.fruitScale.get("fruit1"))
     }
     
@@ -90,12 +99,7 @@ export default class Level extends Phaser.Scene {
     }
 
     update() {
-        this.checkCollision();
         this.updateHUD();
-    }
-
-    checkCollision(){
-
     }
 
     goToTitle() {
@@ -105,7 +109,7 @@ export default class Level extends Phaser.Scene {
 
     HUD(){
         this.score = this.add.text(
-            this.cameras.main.centerX,
+            this.cameras.main.centerX / 2,
             this.cameras.main.centerY - 350,
             "Score: " + this.points,
             {
@@ -114,12 +118,15 @@ export default class Level extends Phaser.Scene {
                 color: 'White',
             }
         ).setOrigin(0.5, 0.5);
+
+        this.nextFruitImage = this.add.image((this.cameras.main.centerX / 2) * 3 + 50, this.cameras.main.centerY - 350, "fruit" + this.nextFruitNumber);
+        this.nextFruitImage.setScale(0.25);
     }
 
     updateHUD(){
         this.score.destroy();
         this.score = this.add.text(
-            this.cameras.main.centerX,
+            this.cameras.main.centerX / 2,
             this.cameras.main.centerY - 350,
             "Score: " + this.points,
             {
@@ -128,6 +135,10 @@ export default class Level extends Phaser.Scene {
                 color: 'White',
             }
         ).setOrigin(0.5, 0.5);
+
+        this.nextFruitImage.destroy();
+        this.nextFruitImage = this.add.image((this.cameras.main.centerX / 2) * 3 + 50, this.cameras.main.centerY - 350, "fruit" + this.nextFruitNumber);
+        this.nextFruitImage.setScale(0.25);
     }
 
     victoryAnimation() {
@@ -177,6 +188,8 @@ export default class Level extends Phaser.Scene {
                         );
                 
                         this.fruitsPool.push(mergedFruit);
+
+                        this.points += (auxN - 1) * 10;
                     }
                 }
             });

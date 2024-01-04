@@ -30,9 +30,9 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
             this.dropCooldown = Math.max(0, this.dropCooldown - dt / 1000);
 
             if (this.cursors.left.isDown) {
-                this.x -= 2;
+                this.x -= 3;
             } else if (this.cursors.right.isDown) {
-                this.x += 2;
+                this.x += 3;
             }
 
             // Verifica si se puede soltar una fruta (cooldown ha terminado)
@@ -46,7 +46,7 @@ export default class Spawner extends Phaser.GameObjects.Sprite {
     initializeTexture(scale){
         this.setScale(scale);
     }
-    
+
     changeTexture(scale){
         this.spriteN = this.scene.nextFruitNumber;  // Actualiza el número de fruta del spawner
         this.setTexture("fruit" + this.spriteN);  // Establece la textura correspondiente
