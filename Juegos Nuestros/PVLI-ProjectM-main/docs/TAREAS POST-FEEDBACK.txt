@@ -1,0 +1,6 @@
+> ESCALAR EL CANVAS!!
+> apuntar bien las licencias de los assets
+> carga de jsons en el create está medio optimizada solo creo
+> UML? XD 
+> meter más minijuegos 
+> pantalla de gameover...? yo creo que no hace falta, pero como nos lo han dicho idk

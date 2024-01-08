@@ -1,0 +1,199 @@
+#logo { /* logotipo */
+    text-align: center; 
+    line-height: 5%;
+    margin-top: 2rem;
+}  
+
+@font-face { /* fuente de texto */
+    font-family: "corazones";
+    src: url("../assets/fonts/LOGO-JUEGO-kinkie.regular.ttf");
+
+}
+
+@font-face {
+  font-family: "lato";
+  src: url('../assets/fonts/Lato-Regular.ttf');
+}
+
+html { /* imagen de fondo */
+  background-image: url('../assets/images/fondoweb/fondo3.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'lato';
+}
+
+ul { /* corazoncitos en la lista */
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2764";
+  color: rgb(33, 33, 33);
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+ul li li::before {
+  content: "\2661";
+  color: rgb(53, 53, 53);
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+#equipo { 
+    text-align: center; 
+    color: #73c29b;
+    margin: 20px auto 20px auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 25%;
+    max-width: 400px;
+    min-width: 320px;
+    background-color: #0000009c;
+    border-radius: 15px;
+}
+
+.titulo1 {
+  margin-bottom: 0.5em;
+}
+
+.titulo2 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+canvas {
+    text-align: center; 
+    /*line-height: 5%;*/
+    /*margin-left: 25%;*/
+}
+
+/* funcionamiento básico del sistema de pestañas */
+.tab-content {
+    display: none;
+  /* efectito*/
+    background-image: radial-gradient(#c3ebd7 1px, #F6F6F6 1.5px);
+    background-size: 20px 20px;
+  }
+  
+  .tab:target .tab-content, .tab:last-of-type .tab-content {
+    display: block;
+  }
+  
+  .tab:target ~ .tab:last-of-type .tab-content {
+    display: none;
+  }
+
+  /* parámetros para configurar las pestañas */
+:root {
+    --tabs-border-color: #F6F6F6;
+    --tabs-border-size: 6px;
+    --tabs-text-color: rgb(17, 17, 17);
+    --tabs-dark-color: #5a1938;
+    --tabs-lite-color: #934569;
+    --tabs-width: 120px;
+    --tabs-height: 40px;
+  }
+  
+  /* aspecto básico */
+  body {
+    /*font-family: sans-serif;*/
+    line-height: 1.2;
+  }
+  h2, p {
+    margin: 0;
+  } 
+  a {
+    /* color: inherit; */
+    color: #ff799a;
+    text-decoration: none;
+  } 
+  a:hover {
+    color: #73c29b;
+  }
+
+  .tabs * {
+    box-sizing: border-box;
+  }
+
+  /* esto es para posicionar las pestañas correctamente */
+.tab-container {
+    position: relative;
+    padding-top: var(--tabs-height); /* en esta zona colocaremos las pestañas */
+  } 
+#tab1>a { --tabs-position: 0; }
+#tab2>a { --tabs-position: 2; }
+#tab3>a { --tabs-position: 4; }
+#tab4>a { --tabs-position: 6; }
+.tab>a {
+  font-weight: bold;
+  font-size: 1em;
+  text-shadow: -1px 0 #F6F6F6, 0 1px #F6F6F6, 1px 0 #F6F6F6, 0 -1px #F6F6F6;
+  text-align: center;
+  position: absolute;
+  width: 300px;
+  height: calc(var(--tabs-height) + var(--tabs-border-size)); 
+  top: 0;
+  left: calc(var(--tabs-width) * var(--tabs-position)); /* posición de cada pestaña */
+}
+
+  /* más aspecto */
+.tabs { 
+    margin: 4rem 2rem 2rem 2rem;
+    color: var(--tabs-text-color);
+  }
+.tab-content {
+  background-color: var(--tabs-lite-color); 
+  padding: 20px;
+  border: var(--tabs-border-size) solid var(--tabs-border-color);
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  z-index: 100;
+  /*sombra*/
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.4) !important;
+}
+.tab>a {
+  padding: 10px;
+  border: var(--tabs-border-size) solid var(--tabs-border-color);
+  border-radius: 10px 10px 0 0;
+  border-bottom: 0;
+  /* efectito*/
+  background-color: #F6F6F6;
+  background-image:  linear-gradient(#cce2d8 1px, transparent 1px), linear-gradient(to right, #cce2d8 1px, #F6F6F6 1px);
+  background-size: 20px 20px; 
+}
+.tab:target>a, .tab:last-of-type>a {
+  background-color: var(--tabs-lite-color); 
+  z-index: 200;
+  /* efecto 2 */ 
+  background-color: #F6F6F6;
+  background: repeating-linear-gradient( 45deg, #cce2d8, #cce2d8 5px, #F6F6F6 5px, #F6F6F6 15px );
+}
+.tab:target>a {
+  box-shadow: 0 -3px 10px 0px rgba(0,0,0,0.2) !important;
+}
+.tab:target ~ .tab:last-of-type>a {
+  background-color: var(--tabs-dark-color); 
+  z-index: 0; 
+  /* efectito*/
+  background-color: #F6F6F6;
+  background-image:  linear-gradient(#cce2d8 1px, transparent 1px), linear-gradient(to right, #cce2d8 1px, #F6F6F6 1px);
+  background-size: 20px 20px;
+}
+
+/* Footer */
+footer p {
+  font-size: 0.8rem;
+  padding: 0.5rem;
+}
+
+footer {
+  margin: 5rem 2rem 2rem 2rem;
+  padding: 10px;
+  background-color: #000000c9;
+  color: whitesmoke;
+  border-radius: 15px;
+}

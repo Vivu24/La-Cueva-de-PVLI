@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Palanquin+Dark&family=Zilla+Slab:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Palanquin+Dark&family=Zilla+Slab:wght@500&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.body1{
+	background-image: url("Images/Fondos_web/FondoCiudadWeb.png");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.body2{
+	background: url("Images/Fondos_web/FondoVolcanWeb.png");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.body3{
+	background: url("Images/Fondos_web/FondoPlayaWeb.png");
+  background-size: contain;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.capa{
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	z-index: -1;
+	top: 0;left: 0;
+}
+/*Estilos para el encabezado*/
+.header{
+	z-index: 2;
+	width: 100%;
+	height: 70px;
+	position: fixed;
+	top: 0;left: 0;
+}
+.container1{
+	width: 90%;
+	max-width: 1200px;
+	margin: auto;
+}
+.container1 .btn-menu, .logo, .nombre{
+	float: left;
+	line-height: 70px;
+  margin-left: 10px;
+}
+
+.btn-menu{
+	position: absolute;
+  left: 50px;
+}
+
+.logo{
+	position: absolute;
+  left: 80px;
+}
+
+.nombre{
+	position: absolute;
+  left: 150px;
+}
+
+.container1 .btn-menu label{
+	-webkit-text-stroke: 0.5px black;
+	color: #fff;
+	font-size: 28px;
+	cursor: pointer;
+  line-height: 70px;
+}
+.nombre h6{
+  -webkit-text-stroke: 0.5px black;
+	color: #fff;
+	font-weight: 400;
+	font-size: 25px;
+}
+.container1 .menu{
+	float: right;
+	line-height: 70px;
+}
+.container1 .menu li{
+	display: inline-block;
+	padding: 15px 10px;
+	line-height: normal;
+	transition: all 0.3s ease;
+	border-bottom: 2px solid transparent;
+	font-size: 20px;
+}
+.container1 .menu li:hover{
+	border-bottom: 2px solid #c7c7c7;
+	padding: 5px 10px;
+}
+.container1 .menu a{
+  color: #fff;
+  text-decoration: none;
+  -webkit-text-stroke: 0.3px black;
+}
+
+div#historia{
+  width: 80%;
+  height: 400px;
+  top: 400px;
+  left: 160px;
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*Fin de Estilos para el encabezado*/
+
+/*Menù lateral*/
+#btn-menu{
+	display: none;
+}
+
+.container-menu{
+	z-index: 3;
+	position: fixed;
+	background: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	transition: all 500ms ease;
+	opacity: 0;
+	visibility: hidden;
+}
+#btn-menu:checked ~ .container-menu{
+	opacity: 1;
+	visibility: visible;
+}
+.cont-menu{
+	width: 100%;
+	max-width: 250px;
+	background: #1c1c1c;
+	height: 100vh;
+	position: relative;
+	transition: all 500ms ease;
+	transform: translateX(-100%);
+}
+#btn-menu:checked ~ .container-menu .cont-menu{
+	transform: translateX(0%);
+}
+.cont-menu nav{
+	transform: translateY(15%);
+}
+.cont-menu nav a{
+	display: block;
+	text-decoration: none;
+	padding: 20px;
+	color: #c7c7c7;
+	border-left: 5px solid transparent;
+	transition: all 400ms ease;
+}
+.cont-menu nav a:hover{
+	border-left: 5px solid #c7c7c7;
+	background: #1f1f1f;
+}
+.cont-menu label{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+}
+/*Fin de Menù lateral*/
+
+html {
+    position: relative;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    font-family: 'Zilla Slab', serif;
+}
+
+canvas {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 100px;
+    width: 82%;
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    margin-top: 100px;
+    font-weight: 100;
+    font-family: 'Palanquin Dark', sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+}
+
+.container .card {
+    width: 350px;
+    height: 430px;
+    border-radius: 8px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    transition: all 0.25s;
+}
+
+.container .card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0, 32, 150, 0.2)
+}
+
+.container .card img {
+    width: 350px;
+    height: 350px;
+    background-image: url(Images/Arena.png);
+    margin: auto;
+}
+
+.container .card h3 {
+    font-weight: 600;
+}
+
+/* Sobre nosotros */
+div#sobre-nosotros {
+  width: 80%;
+  height: 400px;
+  top: 400px;
+  left: 160px;
+  text-align: justify;
+}
+
+div#titulo {
+  position: relative;
+  width: 40%;
+  bottom: -60px;
+  left: 10;
+}
+
+div#sobre-nosotros-text {
+  position: relative;
+  width: 80%;
+  bottom: -60px;
+  left: 160px;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  position: bottom;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: #111;
+}
+
+.main-footer {
+  display: flex;
+}
+
+.main-footer .box {
+  flex-basis: 50%;
+  padding: 10px 20px;
+}
+
+.box h7 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.box .content-footer {
+  margin: 20px 0 0 0;
+}
+
+.box .content-footer p {
+  text-align: justify;
+}
+
+.left .content-footer .social {
+  margin: 20px 0 0 0;
+}
+
+.left .content-footer .social a {
+  padding: 0 2px;
+}
+
+.left .content-footer .social a span {
+  height: 40px;
+  width: 40px;
+  background: #1a1a1a;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.left .content-footer .social a span:hover {
+  background: #1883ba;
+}

@@ -177,3 +177,61 @@ this.time.delayedCall(5000, metodo(), [], this);                // 5 segs y se l
 this.pool = [];
 const element = new Element(this, x, y);
 this.pool.push(element);
+
+
+/*+++++++LEVEL+++++++*/
+
+import Player from "./Player.js";
+import Enemy from "./Enemy.js";
+import Bullet from "./Bullet.js";
+import Green from "./Green.js";
+import Pause from "./Pause.js";
+
+/*export default class Level extends Phaser.Scene {
+    constructor() {
+        super({ key: 'Level' });
+
+        this.gameCompleted = false;
+        this.isPaused = false; // Agregar una bandera para verificar si la escena está pausada
+    }
+
+    // ... (código existente)
+
+    create() {
+        // ... (código existente)
+
+        this.input.keyboard.on('keydown-Q', this.togglePause, this); // Cambiar a 'keydown-Q' para manejar el evento de presionar Q
+    }
+
+    update() {
+        if (this.isPaused) {
+            return; // No actualizar si la escena está pausada
+        }
+
+        // ... (código existente)
+    }
+
+    togglePause() {
+        if (this.isPaused) {
+            this.resumeGame();
+        } else {
+            this.pauseGame();
+        }
+    }
+
+    pauseGame() {
+        this.isPaused = true;
+
+        // Puedes agregar lógica adicional de pausa aquí (por ejemplo, mostrar un menú de pausa)
+        const pauseMenu = new Pause(this); // Asume que tienes una clase Pause para mostrar un menú de pausa
+    }
+
+    resumeGame() {
+        this.isPaused = false;
+
+        // Puedes agregar lógica adicional de reanudación aquí (por ejemplo, ocultar el menú de pausa)
+    }
+
+    // ... (resto del código)   
+}
+*/

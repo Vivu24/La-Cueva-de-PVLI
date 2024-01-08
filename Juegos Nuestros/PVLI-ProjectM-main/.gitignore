@@ -1,0 +1,19 @@
+.vs/*
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+jsconfing.json
+.src/def/*
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+cynthia.code-workspace
+assets/dialogue editor/MBTIDialogues.cfg
+*.cfg
+assets/dialogue editor/MBTIDialogues.cfg

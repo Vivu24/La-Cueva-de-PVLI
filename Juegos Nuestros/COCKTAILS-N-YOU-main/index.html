@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cocktail and You</title>
+    <meta charset="utf-8">
+    
+    <link rel = "stylesheet" href="src/style.css" type="text/css">
+    <script src="src/index.js"></script>
+</head>
+<body> 
+    <div class="inicio"></div>
+    <header>
+        <a href="#inicio">
+            <img src="assets/webImages/LogoC&U.png" alt="Logo" class="logo">
+        </a>
+        
+        <h1>Cocktails and You</h1>
+    </header>
+    <nav>
+        <button onclick="mostrarOcultar('descripcion')">DESCRIPCIÓN</button>
+        <button  onclick="mostrarOcultar('controles')">CONTROLES Y OBJETIVO</button>
+        <button onclick="mostrarOcultar('empresa')">MÁS DE NOSOTROS</button>
+    </nav>
+    <div class="startGame">
+        <a href="game.html">
+            <button >JUGAR</button>
+        </a>
+        
+    </div>
+    <div id="descripcion" class="contenido">
+            <h1>DESCRIPCIÓN DEL JUEGO</h1>
+            <div class="dentroDescripcion"> 
+                <p>
+                 Cocktails and You es un videojuego en el que controlaremos a un barman quien trabaja realizando cócteles a los diferentes clientes que piden diferentes pedidos.
+                 <br> Para realizar cada bebida, será necesario realizar diferentes minijuegos para así conseguir los diferentes componentes de la bebida a realizar. 
+                 <br> Las bebidas preparadas variarán dependiendo de las distintas personalidades de los clientes. En total habrá 4 tipos de personalidades (amarilla, morada, azul y verde).
+                 <br> El juego contará con 5 niveles en total. Y cada nivel con tres estrellas. 
+                 Estas estrellas se consiguen en base a cuantos clientes se ha servido exitosamente.  
+                 <img src="assets/sprites/FondoTemporal.jpg">
+                </P>
+                 <!-- <img src="LogoNineandoCorp.jpg" alt="AQUI VA UNA IMAGEN TO GUAPA DEL JUEGO">-->
+
+                    
+            </div>
+             <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo ;P-->
+    </div>
+    
+    <div id="controles" class="contenido" >
+            <h1>CONTROLES Y OBJETIVO</h1>
+            <div class="dentroControles"> 
+                <p>
+                    Los controles basicos de COCKTAILS AND YOU se basan en:<br><br>
+                    Controles de movimiento<br>
+                </p>
+                <img src="assets/webImages/flechascontroles.png">
+                <p>
+                    Controles dentro de cada minujego<br>
+                </p>
+                <nav>
+                    <button onclick="mostrarOcultarControles('hielos')">HIELOS</button> 
+                    <button onclick="mostrarOcultarControles('bebidas_alcoholicas')">BEBIDAS ALCOHOLICAS</button> 
+                    <button onclick="mostrarOcultarControles('refrescos')">REFRESCOS</button> 
+                    <button onclick="mostrarOcultarControles('frutas')">FRUTAS</button> 
+                    <button onclick="mostrarOcultarControles('otros')">OTROS INGREDIENTES</button>
+                </nav>
+                
+                <div id="hielos" class="minijuegos">
+                    <p>
+                        En este minijuego deberemos lanzar un hielo con la fuerza necesaria
+                       (arrastrando el ratón, estilo Tigerball) para encestar en la coctelera.
+                       <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo-->
+                    </p>
+                </div>
+                <div id="bebidas_alcoholicas" class="minijuegos">
+                    <p>
+                        Diferentes tipos de bebidas alcohólicas se moverán por la pantalla aleatoriamente
+                       y el jugador deberá disparar(click izquierdo apuntando en la botella) y acertar a la correcta.
+                       <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo -->
+                    </p>
+                </div>
+                <div id="refrescos" class="minijuegos">
+                    <p>
+                        Minijuego donde nuestro protagonista tendra que saltar(flecah hacia arriba)
+                         y moverse horizontalmente(flechas movimiento)
+                        para conseguir los refrescos deseados en las paltaformas del nivel
+                        <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo -->
+                    </p></div>
+                <div id="frutas" class="minijuegos">
+                    <p>
+                        Diferentes frutas y hierbas caerán con la fuerza de la gravedad
+                        mientras que el jugador deberá atraparlos moviendo horizontalmente(Tecla A y D) una cesta.
+                        <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo -->
+                    </p>
+                </div>
+                <div id="otros" class="minijuegos">
+                    <p>
+                        Minijuego donde movemos una barra(Teclas A y D) para hacer rebotar una pelota la cual va consiguiendo los ingredientes 
+                        del coctel al chocar con los bloques pegados al techo.
+                        <!--Ya se verá que se mete, alguna foto del juego o algo por el estilo -->
+                     </p>
+                </div>
+            
+                
+
+            </div>
+    </div>
+    
+
+    <div id="empresa" class="contenido">
+            <h1>MÁS DE NOSOTROS</h1>
+            <h2> FEATHER RISE</h2>
+            <h4>
+                 <iframe width="640" height="360"  src="https://www.youtube.com/embed/CZhTvGFhpK4" frameborder="0" allowfullscreen></iframe>
+            </h4>
+            
+    </div>
+    <footer>
+            <a href="https://github.com/Marc0sPM/COCKTAILS-N-YOU" target="_blank">
+                <img src="assets/webImages/GitHub-logo.png" alt="Enlace github">
+                <p>GITHUB</p>
+            </a>
+    
+            <a href="https://linktr.ee/nineandocorp" target="_blank">
+            
+                <img src="assets/webImages/LogoNineandoCorp.jpg" alt="Enlace linktr">
+                <p>@ REDES SOCIALES</p>
+            </a>    
+            
+    </footer>
+        
+    
+</body>
+</html>

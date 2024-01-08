@@ -1,0 +1,226 @@
+/*Definicion de la fuente para titulos*/
+@font-face {
+    font-family: 'myFont';
+    src: url(../assets/webFonts/KaushanScript-Regular.ttf);
+}
+/*--------------------*/
+
+body{
+    background-color: #f5f5dc;
+    font-family:myFont;
+    margin: 0;
+    padding: 0;
+}
+/*Disposicion de header*/
+header{
+    background-color: #997f5e;
+    padding: 20px;
+    text-align: center;
+    text-shadow:  2px 2px 4px rgba(0 ,0 ,0,0.5);
+}
+header h1{
+    color: #fff;
+    font-family: myFont;
+    font-size: 50px;
+}
+header img{
+    margin-top:25px;
+    margin-left: 20px;
+    scale:150%;
+}
+.logo{
+    width: 100px; 
+    height: auto; 
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+/*Boton de jugar*/
+.startGame{
+    align-items: center;
+    text-align: center;
+}
+.startGame button{
+    width: 50%;
+    background-color: aquamarine;
+    color: #5a4d3b;
+    border: none;
+    padding: 30px 40px;
+    margin: 0 30px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: myFont;
+    font-size: 50px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    
+}
+
+/* Estilos para los botones 1*/
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #d2b48c;
+    padding: 10px 0;
+}
+
+nav button {
+    background-color: #f5f5dc;
+    color: #5a4d3b;
+    border: none;
+    padding: 10px 40px;
+    margin: 0 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: myFont;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+nav button:hover {
+    background-color: #ac8f69;
+    color: #f5f5dc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/*Disposiciony decoracion del contenido de la pagina web*/
+.contenido{
+    display: none;
+    background-color: #d2b48c;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: none;
+    margin-top:15px;
+    margin-bottom: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contenido h1{
+    text-align: center;
+    font-family: myFont;
+    font-size: 35px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    
+}
+.contenido h2{
+    text-align: center;
+    font-family: myFont;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    
+}
+.contenido h3{
+    font-family: myFont;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    
+}
+.contenido p{
+    width: 60%;
+    
+}
+.contenido img{
+    width: 200px;
+    height: 100px;
+}
+.dentroControles{
+    text-align: center;
+    margin-right: 30px;
+    margin-left:30px;
+}
+.dentroControles p{
+   
+   width: 100%;
+   background-color: #f5f5dc;
+  
+   border-radius: 5px;
+   border: none;
+   margin-top:15px;
+  
+   padding-top: 10px;
+   padding-bottom: 10px;
+}
+.dentroControles nav {
+    display: flex;
+    justify-content: center;
+    background-color:#997f5e;
+    border:none;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+.dentroDescripcion p{
+    display: flex;
+    margin-left: 400px;
+}
+.dentroDescripcion img{
+    width: 600px;
+    height: 400px;
+    text-align: justify;
+    float: right;
+    margin-left: 150px;
+}
+.minijuegos{
+    display:none;
+}
+
+.dentroControles img{
+    width: 300px;
+    height: 200px;
+}
+.contenido h4{
+    text-align: center;
+    margin-right: 30px;
+    margin-left:30px;
+}
+
+/*Decoracion footer*/ 
+footer{
+    background-color: #997f5e;
+    text-align: center;
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    font-family: myFont;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    color: #5a4d3b;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+footer a {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+footer img {
+    width: 100px; 
+   
+   
+}
+footer a:nth-child(2) img {
+    margin-right: 10px;
+    box-shadow: 5px 5px 15px rgba(0 ,0 ,0,0.75);
+}
+
+
+/*Centrar canvas phaser*/
+#container{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    height: calc(100vh);
+    
+}
+
+

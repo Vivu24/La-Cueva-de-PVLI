@@ -1,0 +1,45 @@
+<mxfile host="app.diagrams.net" modified="2023-11-02T23:13:05.188Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="SaOcVWQ3iQz4Pki8mCUD" version="22.0.8" type="device">
+  <diagram name="Página-1" id="4Di6m-BFFoKO9FQHmAbU">
+    <mxGraphModel dx="1820" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="atKARHegg5MyUjocJEcO-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" parent="1" source="atKARHegg5MyUjocJEcO-3" target="atKARHegg5MyUjocJEcO-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-3" value="LEVEL&lt;hr&gt;Grupos físicas&lt;br&gt;Create&lt;br&gt;Update&lt;br&gt;win()&lt;br&gt;lose()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="370" y="150" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-4" value="Phaser.Scene" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="370" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" parent="1" source="atKARHegg5MyUjocJEcO-7" target="atKARHegg5MyUjocJEcO-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-7" value="Menú" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="650" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" parent="1" source="atKARHegg5MyUjocJEcO-9" target="atKARHegg5MyUjocJEcO-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-9" value="NPCS&lt;hr&gt;tipoCoctel&lt;br&gt;ayudaColor&lt;br&gt;Dialogo()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="-10" y="120" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="atKARHegg5MyUjocJEcO-10" value="Phaser.Sprite" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="160" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EtjukB8g0D69jJclC281-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" parent="1" source="EtjukB8g0D69jJclC281-2" target="atKARHegg5MyUjocJEcO-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="180" />
+              <mxPoint x="250" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EtjukB8g0D69jJclC281-2" value="Player&lt;hr&gt;preUpdate()&lt;br&gt;onClick()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#182E3E;strokeColor=#FFFFFF;labelBackgroundColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="160" y="230" width="120" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
