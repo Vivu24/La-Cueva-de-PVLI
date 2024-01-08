@@ -1,31 +1,45 @@
 export default class Pause extends Phaser.Scene {
     constructor() {
-        super({ key: 'Pause' });
+        super({ key: 'Pause', active: false });
     }
 
     create() {
-        this.createButton('Continue', 0, 0, 'red', 'blue');
-    }
+        // Fondo semitransparente
+        const rect = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000, 0.7).setOrigin(0);
 
-    createButton(text, yOffset, players, textColor, strokeColor) {
-        let button = this.add.text(
-            this.cameras.main.centerX,
-            yOffset + this.cameras.main.centerY,
-            text,
+        // Texto de pausa
+        const pauseText = this.add.text(
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2 - 50,
+            'PAUSED',
             {
                 fontFamily: 'gummy',
-                fontSize: 25,
-                color: textColor,
-                stroke: strokeColor,
-                strokeThickness: 2 // Grosor del borde
+                fontSize: 50,
+                color: 'White',
+                stroke: '0xffffff',
+                strokeThickness: 6
             }
         ).setOrigin(0.5, 0.5);
 
-        button.setInteractive();
-        button.on("pointerdown", () => {
-            this.scene.start("Level", {nPlayers : players});
+        // Botón de resume
+        const resumeButton = this.add.text(
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2 + 50,
+            'RESUME',
+            {
+                fontFamily: 'gummy',
+                fontSize: 30,
+                color: 'White',
+                stroke: '0xffffff',
+                strokeThickness: 4
+            }
+        ).setOrigin(0.5, 0.5).setInteractive();
+
+        // Evento de clic para reanudar el juego
+        resumeButton.on('pointerdown', () => {
+            this.scene.stop('Pause');
+            this.scene.get('Level').isPaused = false; // Actualizar el estado de pausa en Level.js
+            this.scene.get('Level').scene.resume();
         });
     }
-
-    update() {}
 }

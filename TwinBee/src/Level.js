@@ -2,14 +2,13 @@ import Player from "./Player.js";
 import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js";
 import Green from "./Green.js";
-import Pause from "./Pause.js";
 
 export default class Level extends Phaser.Scene {
     constructor() {
         super({ key: 'Level' });
 
         this.gameCompleted = false;
-        
+        this.isPaused = false; // Nuevo estado para controlar la pausa
     }
 
     init(data) {
@@ -17,9 +16,6 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
-        this.cursors = this.input.keyboard.addKeys({
-            pause: Phaser.Input.Keyboard.KeyCodes.Q
-        });
         this.background = this.add.image(0, this.cameras.main.height, "background").setOrigin(0, 1);
 
         this.players = [];
@@ -37,15 +33,26 @@ export default class Level extends Phaser.Scene {
         this.spawnNabo();
         this.spawnGreen();
 
+
+        // Dentro de la función create de Level.js, después de this.spawnGreen();
+        this.input.keyboard.on('keydown-Q', () => {
+            this.isPaused = !this.isPaused; // Alternar estado de pausa al presionar 'Q'
+
+            if (this.isPaused) {
+                this.scene.pause();
+                this.scene.launch('Pause'); // Mostrar el menú de pausa
+            } else {
+                this.scene.stop('Pause');
+                this.scene.resume();
+                
+            }
+        });
+
         this.physics.add.collider(this.enemiesPool, this.bulletsPool, this.enemiesAndBulletCollision.bind(this));
         console.log("level");
     }
 
     update() {
-        if (this.cursors.pause.isDown){
-            this.pause()
-        }
-
         // Comprobar si el fondo ha llegado al final de la imagen
         if (!(this.background.y >= this.background.height - this.cameras.main.height)) {
             this.background.y += 0.5;
