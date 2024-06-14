@@ -1,0 +1,7 @@
+background 512x512
+ball 16x16
+table 236x306
+rat 416x32  (13 frames de 32px de ancho)
+penguin 520x40 (13 frames de 40px de ancho)
+worm 60x22 (2 frames de 30px de ancho)
+score 64x60
