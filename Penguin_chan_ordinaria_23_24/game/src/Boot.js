@@ -4,8 +4,7 @@ export default class Boot extends Phaser.Scene{
         super({key: 'Boot'});
     }
 
-    preload(){ 
-
+    preload(){
         // Cargamos Spritesheets
         this.load.spritesheet('penguin', './assets/penguin40.png', {frameWidth: 40, frameHeight: 40});
         this.load.spritesheet('rat', './assets/rat32.png', {frameWidth: 32, frameHeight: 32});
@@ -13,8 +12,8 @@ export default class Boot extends Phaser.Scene{
         // Cargamos Imagenes
         this.load.image('background', './assets/background.png');
         this.load.image('ball', './assets/ball16.png');
-        this.load.image('score', './assets/score.png');
         this.load.image('table', './assets/table.png');
+        this.load.image('scoreboard', './assets/score.png');
 
         // Cargamos Audio
         //this.load.audio('drop', './assets/sounds/drop.wav');

@@ -10,31 +10,27 @@ export default class Title extends Phaser.Scene {
         // Texto del Título con borde de color aleatorio
         let title = this.add.text(
             this.cameras.main.centerX,
-            this.cameras.main.centerY - 100,
-            'Penguin-chan',
+            this.cameras.main.centerY - 150,
+            'Penguin-Chan\nWars',
             {
                 fontFamily: 'babelgam',
-                fontSize: 55,
-                color: 'White',
+                fontSize: 80,
+                color: 'Blue',
             }
         ).setOrigin(0.5, 0.5);
-        let title2 = this.add.text(
-            this.cameras.main.centerX,
-            this.cameras.main.centerY - 60,
-            'Wars',
-            {
-                fontFamily: 'babelgam',
-                fontSize: 55,
-                color: 'White',
-            }
-        ).setOrigin(0.5, 0.5);
+
+        // Alineacion del texto
+        title.setAlign('center');
+
+        //Color del reborde de la letra y grosor.
+        title.setStroke('white', 8)
 
         // Botones
-        this.createButton('1P Game', 30, 1, 'white');
-        this.createButton('2P Game', 70, 2, 'white');
+        this.createButton('1P Game', 0, 2, 'white');
+        this.createButton('VS Game', 50, 2, 'white');
     }
 
-    createButton(text, yOffset, players, textColor) {
+    createButton(text, yOffset, unidades, textColor) {
         let button = this.add.text(
             this.cameras.main.centerX,
             yOffset + this.cameras.main.centerY,
@@ -48,7 +44,7 @@ export default class Title extends Phaser.Scene {
 
         button.setInteractive();
         button.on("pointerdown", () => {
-            this.scene.start("Level", {nPlayers : players} );
+            this.scene.start("Level", {nPlayers : unidades});
         });
     }
 

@@ -1,6 +1,6 @@
-import Level from "./Level.js";
 import Boot from "./Boot.js";
 import Title from "./Title.js";
+import Level from "./Level.js";
 
 let config = {
 	type: Phaser.AUTO,
