@@ -26,8 +26,8 @@ export default class Title extends Phaser.Scene {
         title.setStroke('white', 8)
 
         // Botones
-        this.createButton('1P Game', 0, 2, 'white');
-        this.createButton('VS Game', 50, 2, 'white');
+        this.createButton('1P Game', 0, 1, 'white');
+        this.createButton('2P Game', 50, 2, 'white');
     }
 
     createButton(text, yOffset, unidades, textColor) {
