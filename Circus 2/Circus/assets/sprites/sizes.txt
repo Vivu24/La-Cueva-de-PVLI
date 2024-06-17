@@ -1,0 +1,5 @@
+clown: "16x24"
+lion: "36x16"
+ring: "26x80"
+platform: "37x30"
+fire: "25x31"
