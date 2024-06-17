@@ -32,7 +32,25 @@ export default class Boot extends Phaser.Scene{
         });
         this.anims.create({
             key: 'jetpacIdle',
+            frames: this.anims.generateFrameNumbers('jetpac', {start:4, end:4}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walkingPlayer',
             frames: this.anims.generateFrameNumbers('jetpac', {start:4, end:7}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'meteorIdle',
+            frames: this.anims.generateFrameNumbers('meteor', {start:0, end:1}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'meteorBoom',
+            frames: this.anims.generateFrameNumbers('meteor', {start:2, end:3}),
             frameRate: 5,
             repeat: -1
         });

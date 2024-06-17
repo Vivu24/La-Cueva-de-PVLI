@@ -18,11 +18,11 @@ let config = {
         height: 256,
 		zoom: 1
     },
-    scene: [Boot, Title],
+    scene: [Boot, Title, Level],
     physics: { 
         default: 'arcade', 
         arcade: { 
-            //gravity: { y: 200 }, 
+            gravity: { y: 200 }, 
             debug: true 
         },
         checkCollision: {

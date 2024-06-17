@@ -18,12 +18,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
 
-        this.anims.play('idlePlayer', true);
+        this.anims.play('jetpacIdle', true);
     }
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         this.move();
+        this.checkToroid();
     }
 
     move() {
@@ -45,7 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             else {
                 this.setVelocityX(0);
                 if (this.body.blocked.down || this.body.touching.down) {
-                    this.anims.play('idlePlayer');
+                    this.anims.play('jetpacIdle');
                 }
             }
 
@@ -57,6 +58,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         else {
             this.setVelocityX(0);
             this.setVelocityY(0);
+        }
+    }
+
+    checkToroid(){
+        if(this.x >= this.scene.cameras.main.width){
+            this.x = 0;
+        }
+        else if(this.x < 0){
+            this.x = this.scene.cameras.main.width;
         }
     }
     

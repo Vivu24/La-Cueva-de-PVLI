@@ -1,4 +1,5 @@
 import Player from "./Player.js";
+import Meteor from "./Meteor.js";
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -10,9 +11,27 @@ export default class Level extends Phaser.Scene {
 
     init(data) {
         this.diff = data.difficulty || 0;
+
+        if(this.diff == 1){
+            this.fuelsNecesarios = 2;
+            this.meteorCooldown = 2000;
+        }
+        else if(this.diff == 2){
+            this.fuelsNecesarios = 3;
+            this.meteorCooldown = 1000;
+        }
+        else{
+            this.fuelsNecesarios = 5;
+            this.meteorCooldown = 500;
+        }
     }
 
     create() {
+
+        this.fuelsRecogidos = 0;
+
+        this.player = new Player(this,50,50);
+    
 
         // *** TILEMAP *** // en el enunciado nos dice q los tiles son 8x8
         const map = this.make.tilemap({
@@ -25,15 +44,78 @@ export default class Level extends Phaser.Scene {
         this.groundLayer = map.createLayer('ground', tileset);
 
         // Colision con el suelo / plataformas
+        // Abrir en Tiled sample.tmx 
+        // En conjunto de patrones, click derecho y editar conj de patrones
+        // Añade propiedad collides a true
         this.groundLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, this.groundLayer);
 
-        this.player = new Player(this,100,100);
+        this.fuelPool = [];
+        this.meteorPool = [];
+
+        for(let i = 0; i < this.fuelsNecesarios; i++){
+            this.rand = this.getRandomNumber(1, this.cameras.main.width);
+            this.instanciaFuel(this.rand, 0);
+        }
+
+
+        this.spaceship = this.add.sprite(160, 160, "spaceship");
+        this.physics.world.enable(this.spaceship);
+        this.spaceship.body.setAllowGravity(false);
+
+        this.score = this.add.text(
+            this.spaceship.x,
+            this.spaceship.y - 40,
+            this.fuelsRecogidos + "/" + this.fuelsNecesarios,
+            {
+                fontFamily: 'Pixeled',
+                fontSize: 10,
+                color: 'White',
+            }
+        ).setOrigin(0.5, 0.5);
+
+        this.time.addEvent({
+            delay: this.meteorCooldown,
+            loop: true,
+            callback: () => {
+                this.rand = this.getRandomNumber(1, this.cameras.main.width);
+                this.instanciaMeteor(this.rand,0);
+            }
+        });
+
     }
 
     update() {
-        //this.checkCollision();
+        this.checkCollision();
 
+        if(this.fuelRecogido){
+            this.fuel.body.setAllowGravity(false);
+            this.fuel.x = this.player.x;
+            this.fuel.y = this.player.y - 15;
+        }
+
+        if(this.fuelsNecesarios == this.fuelsRecogidos && !this.gameEnd){
+            this.finishGame();
+            this.gameEnd = true;
+        }
+
+    }
+
+    instanciaMeteor(x,y){
+        console.log("instanciameteor")
+        this.meteor = new Meteor(this, x, y);
+        this.physics.world.enable(this.meteor);
+        this.physics.add.collider(this.meteor, this.groundLayer);
+
+        this.meteorPool.push(this.meteor);
+    }
+
+    instanciaFuel(x,y){
+        this.fuel = this.add.sprite(x, y, "fuel");
+        this.physics.world.enable(this.fuel);
+        this.physics.add.collider(this.fuel, this.groundLayer);
+
+        this.fuelPool.push(this.fuel);
     }
 
     finishGame(){
@@ -44,15 +126,34 @@ export default class Level extends Phaser.Scene {
         }, [], this);
     }
 
+    getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     victoryText(){
         // Texto del Título con borde de color aleatorio
         let title = this.add.text(
             this.cameras.main.centerX,
-            this.cameras.main.centerY - 150,
-            'Victory\n' + this.ballsZone1 + "/" + this.ballsZone2,
+            this.cameras.main.centerY - 50,
+            'Victory',
             {
-                fontFamily: 'babelgam',
-                fontSize: 80,
+                fontFamily: 'Pixeled',
+                fontSize: 20,
+                color: 'Blue',
+            }
+        ).setOrigin(0.5, 0.5);
+        title.setAlign('center');
+    }
+
+    loserText(){
+        // Texto del Título con borde de color aleatorio
+        let title = this.add.text(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY - 50,
+            'You lost',
+            {
+                fontFamily: 'Pixeled',
+                fontSize: 20,
                 color: 'Blue',
             }
         ).setOrigin(0.5, 0.5);
@@ -71,76 +172,40 @@ export default class Level extends Phaser.Scene {
     }
 
     checkCollision(){
-        this.ballPool.forEach(ball => {
-            // Verifica la colisión con cada zona
-            const collision = this.physics.world.overlap(ball, this.zone1);
-            const collision2 = this.physics.world.overlap(ball, this.zone2);
-            if(collision || collision2){
-                ball.freeze();
+        this.fuelPool.forEach(fuel => {
+            const collision = this.physics.world.overlap(fuel, this.player);
+            if(collision && !this.fuelRecogido){
+                this.recogerFuel(fuel);
             }
         });
-        
-        // Llama al stun cuando la pelota viene de ser lanzada
-        this.ballPool.forEach(ball => {
-            this.players.forEach(player => {
-                const collision = this.physics.world.overlap(ball, player);
-                if(collision){
-                    if(player == this.player && ball.body.velocity.y > 0){
-                        player.stun();
-                    }
-                    else if((player == this.player2 || player == this.rat) && ball.body.velocity.y < 0){
-                        player.stun();
-                    }
-                }
-            })
 
-            this.ballPool.forEach(ball2 => {
-                const collision = this.physics.world.overlap(ball, ball2);
-                if(collision){
-                    if(ball != ball2){
-                        ball.body.setVelocityY(ball.body.velocity.y * -1);
-                        ball2.body.setVelocityY(ball2.body.velocity.y * -1);
-                    }
-                }
-            })
+        const collision2 = this.physics.world.overlap(this.spaceship, this.player);
+        if(collision2 && this.fuelRecogido){
+            this.echarGasolina();
+        }
 
+        this.meteorPool.forEach(meteor => {
+            const collision = this.physics.world.overlap(meteor, this.player);
+            if(collision){
+                this.loserText();
+                this.time.delayedCall(3000, () => {
+                    this.goToTitle();
+                }, [], this);
+            }
         });
     }
 
-    collisionPlayerBall1(){
-        this.ballCollidedPlayer = null;
-        this.ballPool.forEach(ball => {
-            const collision = this.physics.world.overlap(ball, this.player);
-            if(collision){
-                console.log("colisionasecas")
-                this.ballCollidedPlayer = ball;
-            }
-        });
-        return this.ballCollidedPlayer;
+    echarGasolina(){
+        this.fuel.destroy();
+        this.fuelRecogido = false;
+        this.fuelsRecogidos ++;
+        this.updateHUD();
     }
 
-    collisionPlayerBall2(){
-        this.ballCollidedPlayer = null;
-        this.ballPool.forEach(ball => {
-            const collision = this.physics.world.overlap(ball, this.player2);
-            if(collision){
-                console.log("colisionasecas")
-                this.ballCollidedPlayer = ball;
-            }
-        });
-        return this.ballCollidedPlayer;
-    }
-
-    collisionRatBall(){
-        this.ballCollidedPlayer = null;
-        this.ballPool.forEach(ball => {
-            const collision = this.physics.world.overlap(ball, this.rat);
-            if(collision){
-                console.log("colisionasecas")
-                this.ballCollidedPlayer = ball;
-            }
-        });
-        return this.ballCollidedPlayer;
+    recogerFuel(fuel){
+        fuel.destroy();
+        this.instanciaFuel(this.player.x, this.player.y - 15);
+        this.fuelRecogido = true;
     }
 
     goToTitle() {
@@ -148,65 +213,17 @@ export default class Level extends Phaser.Scene {
         this.scene.start("Title");
     }
 
-    HUD(){
-        this.score = this.add.text(
-            this.spaceship.x,
-            this.spaceship.y - 40,
-            "Score",
-            {
-                fontFamily: 'babelgam',
-                fontSize: 10,
-                color: 'White',
-            }
-        ).setOrigin(0.5, 0.5);
-    }
-
-    // Lo llamas en el create
-    timerHUD(){
-        const updateTimer = () => {
-            // Vamos restando de uno en uno
-            this.gameTime -= 1; // Cambia esto según tus necesidades
-
-            // Eliminar el texto anterior
-            this.timerText.destroy();
-
-            if(this.gameTime > 0){
-                // Crear el nuevo texto actualizado en el mismo sitio
-                this.timerText = this.add.text(20, 20, this.gameTime,
-                    { fontFamily: 'babelgam', fontSize: 15, color: 'White' }).setOrigin(0.5, 0.5);
-            }
-        };
-        // Evento que actualice el temporizador
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: updateTimer,
-            callbackScope: this
-        });
-    }
-
     updateHUD(){
         this.score.destroy();
         this.score = this.add.text(
             this.spaceship.x,
             this.spaceship.y - 40,
-            "Score",
+            this.fuelsRecogidos + "/" + this.fuelsNecesarios,
             {
-                fontFamily: 'babelgam',
+                fontFamily: 'Pixeled',
                 fontSize: 10,
                 color: 'White',
             }
         ).setOrigin(0.5, 0.5);
-    }
-
-    victoryAnimation() {
-        this.gameCompleted = true;
-
-        this.time.delayedCall(2000, () => {
-
-        }, [], this);
-
-        // Agregar un retraso de 5 segundos antes de saltar al menú
-        this.time.delayedCall(5000, this.goToTitle, [], this);
     }
 }
