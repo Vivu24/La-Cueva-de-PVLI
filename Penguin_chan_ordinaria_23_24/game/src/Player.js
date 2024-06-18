@@ -110,7 +110,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.ball.setVelocityY(this.speed);
         }
-
+        this.ball.isShooted = true;
         this.hasBall = false;
         this.thrown = true;
     }

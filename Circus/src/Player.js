@@ -13,6 +13,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(35, 20);
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y)
+        
         this.cursors = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
             left: Phaser.Input.Keyboard.KeyCodes.A,

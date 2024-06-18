@@ -9,7 +9,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.isDead = false;
 
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
-        this.body.setSize(17, 24);
+        this.body.setSize(16, 24);
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y);
 
         this.cursors = scene.input.keyboard.addKeys({
@@ -18,7 +18,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
 
-        this.anims.play('jetpacIdle', true);
     }
 
     preUpdate(t, dt) {
@@ -27,30 +26,39 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     move() {
-        if (!this.isDead) {
-            if (this.cursors.left.isDown) {
-                this.setVelocityX(-75);
-                this.setFlipX(true); // Voltear el sprite hacia la izquierda
-            } 
-            else if (this.cursors.right.isDown) {
-                this.setVelocityX(75);
-                this.setFlipX(false); // Restaurar la orientación original del sprite
-            } 
-            else {
-                this.setVelocityX(0);
-                if (this.body.blocked.down || this.body.touching.down) {
-                    this.anims.play('clownIdle');
+        if (!this.isDead){
+
+            if (this.cursors.left.isDown)
+            {
+                this.setVelocityX(-160);
+    
+                if(this.body.touching.down){
+                    this.anims.play('walkLion', true);
                 }
             }
-
+            else if (this.cursors.right.isDown)
+            {
+                this.setVelocityX(160);
+    
+                if(this.body.touching.down){
+                    this.anims.play('walkLion', true);
+                }
+            }
+            else
+            {
+                this.setVelocityX(0);
+                this.anims.play('idleLion');
+            }
+    
             if (this.cursors.up.isDown && this.body.touching.down)
             {
-                this.setVelocityY(-400);    
+                this.setVelocityY(-400);
+                this.anims.play('jumpLion');
             }
-        } 
-        else {
-            this.setVelocityX(0);
-            this.setVelocityY(0);
+        }
+        else{
+            this.setVelocityX(0)
+            this.setVelocityY(0)
         }
     }
     

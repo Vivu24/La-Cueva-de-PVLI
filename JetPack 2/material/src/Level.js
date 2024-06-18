@@ -160,17 +160,6 @@ export default class Level extends Phaser.Scene {
         title.setAlign('center');
     }
 
-    spawnBolas(){
-        for(let i = 0; i < 5; i++){
-            this.ball = new Ball(this, 130 + i*50, 160);
-            this.ballPool.push(this.ball);
-        }
-        for(let i = 0; i < 5; i++){
-            this.ball = new Ball(this, 130 + i*50, 435);
-            this.ballPool.push(this.ball);
-        }
-    }
-
     checkCollision(){
         this.fuelPool.forEach(fuel => {
             const collision = this.physics.world.overlap(fuel, this.player);

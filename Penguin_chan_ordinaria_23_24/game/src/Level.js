@@ -132,6 +132,8 @@ export default class Level extends Phaser.Scene {
             const collision2 = this.physics.world.overlap(ball, this.zone2);
             if(collision || collision2){
                 ball.freeze();
+                ball.isShooted = false;
+                ball.directionX = 0;
             }
         });
         
@@ -145,19 +147,6 @@ export default class Level extends Phaser.Scene {
                     }
                     else if((player == this.player2 || player == this.rat) && ball.body.velocity.y < 0){
                         player.stun();
-                    }
-                }
-            })
-        });
-
-        // Llama al stun cuando la pelota viene de ser lanzada
-        this.ballPool.forEach(ball => {
-            this.ballPool.forEach(ball2 => {
-                const collision = this.physics.world.overlap(ball, ball2);
-                if(collision){
-                    if(ball != ball2){
-                        ball.body.setVelocityY(ball.body.velocity.y * -1);
-                        ball2.body.setVelocityY(ball2.body.velocity.y * -1);
                     }
                 }
             })

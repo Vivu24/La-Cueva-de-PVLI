@@ -22,17 +22,36 @@ export default class Level extends Phaser.Scene {
     }
 
     create() {
-        this.background = this.add.sprite(0, 0, "background").setOrigin(0,-0.2);
+
+        // Scroll lateral basico:
+        this.backgroundImages = [];
+        for(let i = 0; i < 3000; i+= 800){
+            this.background = this.add.image(-200 + i, 0, "background").setOrigin(0, 0);
+            this.backgroundImages.push(this.background);
+        }
+        
         this.player = new Player(this, 50, 150);
         this.player.setScale(3);
 
+        this.clown = this.add.sprite(this.player.x + 10, this.player.y - 70, "clown");
+        this.clown.anims.play('walkClown');
+        this.clown.setScale(3);
+
         this.floor = this.createZone(0, 600, 5000, 50);
         this.physics.add.collider(this.player, this.floor);
+
+        this.camera = this.cameras.main.startFollow(this.player, true, 0.1, 0, 0, 0);
+        this.camera.setFollowOffset(-300, -5500);
+
     }
 
     update() {
-        //this.checkCollision();
+        console.log(this.clown.x)
 
+
+        this.clown.destroy();
+        this.clown = this.add.sprite(this.player.x + 10, this.player.y - 40, "clown");
+        this.clown.setScale(3);
 
     }
 
@@ -85,7 +104,6 @@ export default class Level extends Phaser.Scene {
         if(collision2 && this.fuelRecogido){
             this.echarGasolina();
         }
-
     }
 
     goToTitle() {

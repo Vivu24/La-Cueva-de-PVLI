@@ -13,32 +13,42 @@ export default class Ball extends Phaser.Physics.Arcade.Sprite {
         // Ajustar el tamaño del cuerpo de físicas para que coincida con el sprite visual
         this.body.setSize(16, 16);
         this.body.setOffset(this.playerOffsetRight.x, this.playerOffsetRight.y);
-
+        this.body.setCircle(8);
         // Desactivar la gravedad
-        this.body.setAllowGravity(true);
-
+        this.body.setAllowGravity(false);
+        this.directionX = 0;
         // Asignar la imagen al sprite
         this.setTexture('ball');
     }
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
-        //this.move();     
+        this.setDirectionX(this.directionX);
+        this.checkCollisionWithOtherBalls(this.scene.ballPool);
     }
 
-    move() {
+    setDirectionX(x) {
+        this.setVelocityX(x);
 
     }
 
-    checkCollisionWithPlayer(scene, player) {
-        // Verifica la colisión con el jugador
-        const collision = this.scene.physics.world.overlap(this, player);
+    checkCollisionWithOtherBalls(balls) {
+        balls.forEach(ball => {
+            if (ball !== this && ball.isShooted && this.isShooted) { // Evitar colisiones consigo misma y con bolas inactivas
+                const collision = this.scene.physics.world.overlap(this, ball);
+                if (collision) {
+                    this.handleCollisionWithBall(ball);
+                }
+            }
+        });
+    }
 
-        if (collision) {
-            console.log("Colisión Ball con player");
-        }
-
-        return collision;
+    handleCollisionWithBall(otherBall) {
+        // Calcular la nueva dirección para cada bola
+        console.log("siuuu");
+       
+        this.directionX = Phaser.Math.Between(-50, 50);
+        otherBall.directionX = Phaser.Math.Between(-50, 50);
     }
 
     selfDestroy(){
