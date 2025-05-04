@@ -29,7 +29,7 @@ export default class Level extends Phaser.Scene {
             this.background = this.add.image(-200 + i, 0, "background").setOrigin(0, 0);
             this.backgroundImages.push(this.background);
         }
-        
+
         this.player = new Player(this, 50, 150);
         this.player.setScale(3);
 
@@ -46,8 +46,6 @@ export default class Level extends Phaser.Scene {
     }
 
     update() {
-        console.log(this.clown.x)
-
 
         this.clown.destroy();
         this.clown = this.add.sprite(this.player.x + 10, this.player.y - 40, "clown");
